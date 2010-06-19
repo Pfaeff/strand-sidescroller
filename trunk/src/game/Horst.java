@@ -14,7 +14,7 @@ import com.sun.opengl.util.Animator;
 public class Horst {
 
 	public static void main(String[] args) {
-		Frame frame = new Frame("Text Renderer Test");
+		Frame frame = new Frame("Horst brennt");
 		GLCapabilities caps = new GLCapabilities();
 		caps.setAlphaBits(8);
 		GLCanvas canvas = new GLCanvas(caps);
