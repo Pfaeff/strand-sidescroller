@@ -4,14 +4,11 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.media.opengl.GLCanvas;
-import javax.media.opengl.GLCapabilities;
+import javax.media.opengl.*;
 
 import com.sun.opengl.util.Animator;
 
-public class Horst {
+public class Horst implements GLEventListener {
 
 	public static void main(String[] args) {
 		Frame frame = new Frame("Horst brennt");
@@ -19,6 +16,7 @@ public class Horst {
 		caps.setAlphaBits(8);
 		GLCanvas canvas = new GLCanvas(caps);
 
+		canvas.addGLEventListener(new Horst());
 		frame.add(canvas);
 		frame.setSize(512, 512);
 		final Animator animator = new Animator(canvas);
