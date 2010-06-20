@@ -25,13 +25,16 @@ public class Horst {
 		
 		// OpenGL Zeichenfläche
 		GLCanvas canvas = new GLCanvas(caps);
+		
+		int width = 512;
+		int height = 512;
 
 		// Objekt zum Initialisieren/Neuzeichnen von OpenGL
-		canvas.addGLEventListener(new Renderer());
+		canvas.addGLEventListener(new Renderer(width, height));
 		frame.add(canvas);
 		
 		// Fenstergröße
-		frame.setSize(512, 512);
+		frame.setSize(width, height);
 		
 		// Thread in dem gezeichnet wird
 		final Animator animator = new Animator(canvas);
