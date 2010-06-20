@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 
 import javax.media.opengl.GL;
 
+import math.Vector2f;
+
 import engine.GameTimer;
 
 /**
@@ -14,26 +16,57 @@ import engine.GameTimer;
 public class Game implements KeyListener {
 	private GameTimer gameTimer;
 	
+	private Vector2f testPos; 
+	private float testVelocity = 500;
+	
+	private boolean left = false;
+	private boolean right = false;
+	private boolean up = false;
+	private boolean down = false;
+				
+	
 	public Game(GameTimer gameTimer) {
+		testPos = new Vector2f(0, 0);
+		
 		this.gameTimer = gameTimer;
 		new Thread() {
 			public void run() {
 				while (true) {
-					update();
+					updateGame();
 				}
 			}
-		};
+		}.start();
 	}
 	
-	private synchronized void update() {
+	private synchronized void updateGame() {
 		float dt = gameTimer.update();
 		
+		float x = 0;
+		float y = 0;
+		if (left) {
+			x = -1;
+		} else {
+			if (right){
+				x = 1;
+			}
+		}
+		if (down) {
+			y = -1;
+		} else {
+			if (up){
+				y = 1;
+			}
+		}		
+		Vector2f direction = new Vector2f(x, y).normalize();
+		direction = direction.scale(testVelocity*dt);
+		testPos = Vector2f.add(testPos, direction);	
 	}
 	
 	public synchronized void draw(GL gl, int width, int height){
 		/*
 		 * Test (ein Dreieck)
 		 */
+		gl.glTranslatef(testPos.getX(), testPos.getY(), 0);
 		gl.glColor3f(1.0f, 1.0f, 1.0f);
 		gl.glBegin(GL.GL_TRIANGLES);
 			gl.glVertex3f(width/2-100, height/2-100, 0);  
@@ -44,14 +77,50 @@ public class Game implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		switch (e.getKeyCode()) {
+		case (KeyEvent.VK_LEFT): {
+			left = true;
+			right = false;
+			break;
+		}
+		case (KeyEvent.VK_RIGHT): {
+			right = true;
+			left = false;
+			break;
+		}
+		case (KeyEvent.VK_UP): {
+			up = true;
+			down = false;
+			break;
+		}
+		case (KeyEvent.VK_DOWN): {
+			down = true;
+			up = false;
+			break;
+		}		
+		}		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		switch (e.getKeyCode()) {
+		case (KeyEvent.VK_LEFT): {
+			left = false;
+			break;
+		}
+		case (KeyEvent.VK_RIGHT): {
+			right = false;
+			break;
+		}
+		case (KeyEvent.VK_UP): {
+			up = false;
+			break;
+		}
+		case (KeyEvent.VK_DOWN): {
+			down = false;
+			break;
+		}		
+		}	
 	}
 
 	@Override

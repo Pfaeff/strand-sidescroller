@@ -39,8 +39,11 @@ public class Horst {
 		// Spielobjekt
 		Game game = new Game(new GameTimer());
 
+		// Tastensteuerung
+		frame.addKeyListener(game);	
+		
 		// Objekt zum Initialisieren/Neuzeichnen von OpenGL
-		canvas.addGLEventListener(new Renderer(game, width, height));
+		canvas.addGLEventListener(new Renderer(game, width, height));	
 		frame.add(canvas);
 		
 		// Fenstergröße
