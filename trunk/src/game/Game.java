@@ -3,6 +3,10 @@ package game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Klasse für die Spiel- und Interaktions-Logik
+ * @author Kai
+ */
 public class Game implements KeyListener {
 
 	@Override

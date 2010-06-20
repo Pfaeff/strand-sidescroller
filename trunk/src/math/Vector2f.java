@@ -5,7 +5,7 @@ package math;
  * 
  * @author Kai
  */
-public class Vector2f {
+final public class Vector2f {
 	final private float x;
 	final private float y;
 
@@ -111,5 +111,23 @@ public class Vector2f {
 	 */
 	public static float dotProduct(Vector2f v1, Vector2f v2) {
 		return v1.x*v2.x+v1.y*v2.y;
+	}
+	
+	/**
+	 * Getter für x
+	 * 
+	 * @return x
+	 */
+	public float getX() {
+		return x;
+	}
+	
+	/**
+	 * Getter für y	
+	 * 
+	 * @return y
+	 */
+	public float getY() {
+		return y;
 	}
 }
