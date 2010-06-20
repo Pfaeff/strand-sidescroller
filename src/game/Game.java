@@ -3,6 +3,8 @@ package game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.media.opengl.GL;
+
 import engine.GameTimer;
 
 /**
@@ -23,9 +25,21 @@ public class Game implements KeyListener {
 		};
 	}
 	
-	private void update() {
+	private synchronized void update() {
 		float dt = gameTimer.update();
 		
+	}
+	
+	public synchronized void draw(GL gl, int width, int height){
+		/*
+		 * Test (ein Dreieck)
+		 */
+		gl.glColor3f(1.0f, 1.0f, 1.0f);
+		gl.glBegin(GL.GL_TRIANGLES);
+			gl.glVertex3f(width/2-100, height/2-100, 0);  
+			gl.glVertex3f(width/2+100, height/2-100, 0);
+			gl.glVertex3f(width/2    , height/2+100, 0);
+		gl.glEnd();		
 	}
 
 	@Override
