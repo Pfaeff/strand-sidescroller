@@ -8,14 +8,14 @@ package engine;
 public class GameTimer {
 	private long lastTime;
 	private long difference;
-	
+
 	/**
 	 * GameTimer erzeugen
 	 */
 	public GameTimer() {
 		lastTime = System.currentTimeMillis();
 	}
-	
+
 	/**
 	 * Timer updaten
 	 * 
@@ -23,11 +23,11 @@ public class GameTimer {
 	 */
 	public synchronized float update() {
 		long currentTime = System.currentTimeMillis();
-		difference = currentTime-lastTime;
+		difference = currentTime - lastTime;
 		lastTime = currentTime;
 		return difference / 1000.0f;
 	}
-	
+
 	/**
 	 * Timestep zurückgeben
 	 * 
