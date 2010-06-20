@@ -10,6 +10,8 @@ import render.Renderer;
 
 import com.sun.opengl.util.Animator;
 
+import engine.GameTimer;
+
 /**
  * Initialisiert notwendige Teilsysteme und stellt das ausführbare Programm dar
  * 
@@ -33,9 +35,12 @@ public class Horst {
 		
 		int width = 800;
 		int height = 600;
+		
+		// Spielobjekt
+		Game game = new Game(new GameTimer());
 
 		// Objekt zum Initialisieren/Neuzeichnen von OpenGL
-		canvas.addGLEventListener(new Renderer(width, height));
+		canvas.addGLEventListener(new Renderer(game, width, height));
 		frame.add(canvas);
 		
 		// Fenstergröße
