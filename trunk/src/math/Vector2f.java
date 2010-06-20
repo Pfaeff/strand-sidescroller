@@ -2,6 +2,7 @@ package math;
 
 /**
  * Stellt einen zweidimensionalen Vektor dar
+ * 
  * @author Kai
  */
 public class Vector2f {
