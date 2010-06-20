@@ -1,5 +1,7 @@
 package render;
 
+import game.Game;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -11,8 +13,9 @@ import javax.media.opengl.GLEventListener;
  */
 public class Renderer implements GLEventListener {
 	
-	private final int width;
-	private final int height;
+	final private Game game;
+	final private int width;
+	final private int height;
 	
 	/**
 	 * Konstruktor
@@ -20,7 +23,8 @@ public class Renderer implements GLEventListener {
 	 * @param width Fensterbreite
 	 * @param height Fensterhöhe
 	 */
-	public Renderer(int width, int height) {
+	public Renderer(Game game, int width, int height) {
+		this.game = game;
 		this.width = width;
 		this.height = height;
 	}
