@@ -4,6 +4,11 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 
+/**
+ * Kümmert sich um das Rendern der Szene
+ * 
+ * @author Kai
+ */
 public class Renderer implements GLEventListener {
 	
 	private final int width;
