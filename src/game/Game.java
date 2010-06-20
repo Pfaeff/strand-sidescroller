@@ -14,14 +14,18 @@ public class Game implements KeyListener {
 	
 	public Game(GameTimer gameTimer) {
 		this.gameTimer = gameTimer;
-		run();
+		new Thread() {
+			public void run() {
+				while (true) {
+					update();
+				}
+			}
+		};
 	}
 	
-	private void run() {
-		while (true) {
-			float dt = gameTimer.update();
-			
-		}
+	private void update() {
+		float dt = gameTimer.update();
+		
 	}
 
 	@Override
