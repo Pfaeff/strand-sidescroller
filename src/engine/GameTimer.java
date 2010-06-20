@@ -7,6 +7,7 @@ package engine;
  */
 public class GameTimer {
 	private long lastTime;
+	private long difference;
 	
 	/**
 	 * GameTimer erzeugen
@@ -20,10 +21,19 @@ public class GameTimer {
 	 * 
 	 * @return delta T
 	 */
-	public double update() {
+	public synchronized float update() {
 		long currentTime = System.currentTimeMillis();
-		long result = currentTime-lastTime;
+		difference = currentTime-lastTime;
 		lastTime = currentTime;
-		return result;
+		return difference / 1000.0f;
+	}
+	
+	/**
+	 * Timestep zurückgeben
+	 * 
+	 * @return delta T
+	 */
+	public synchronized float deltaT() {
+		return difference / 1000.0f;
 	}
 }
