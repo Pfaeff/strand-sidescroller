@@ -6,20 +6,68 @@ import javax.media.opengl.GLEventListener;
 
 public class Renderer implements GLEventListener {
 	
+	private final int width;
+	private final int height;
+	
+	/**
+	 * Konstruktor
+	 * 
+	 * @param width Fensterbreite
+	 * @param height Fensterhöhe
+	 */
+	public Renderer(int width, int height) {
+		this.width = width;
+		this.height = height;
+	}
+	
 	/**
 	 * Initialisiert OpenGL
 	 */
 	public void init(GLAutoDrawable drawable) {
 		GL gl = drawable.getGL();
 		gl.setSwapInterval(0);
-
+		
+		// Tiefentest aktivieren
+		gl.glEnable(GL.GL_DEPTH_TEST);
+		
+		// Backface Culling aktivieren
+		gl.glEnable(GL.GL_CULL_FACE);
+		gl.glCullFace(GL.GL_BACK);
+	}
+	
+	/**
+	 * Startet den 2D-Modus
+	 */
+	private void Enter2DMode(GL gl) {
+		gl.glMatrixMode(GL.GL_PROJECTION);
+		gl.glLoadIdentity();
+		gl.glViewport(0, 0, width, height);
+		// statt width und height kann hier auch ein statischer Wert gewählt werden,
+		// dann wird das bild immer automatisch gestreckt
+		gl.glOrtho(0, width, 0, height, 0, 128);
 	}
 
 	/**
 	 * Sorgt dafür, dass alles neugezeichnet wird
 	 */
 	public void display(GLAutoDrawable drawable) {
-
+		GL gl = drawable.getGL();
+		
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+		
+		Enter2DMode(gl);
+		gl.glMatrixMode(GL.GL_MODELVIEW);
+		gl.glLoadIdentity();		
+		
+		/*
+		 * Test (ein Dreieck)
+		 */
+		gl.glColor3f(1.0f, 1.0f, 1.0f);
+		gl.glBegin(GL.GL_TRIANGLES);
+			gl.glVertex3f(width/2-100, height/2-100, 0);  
+			gl.glVertex3f(width/2+100, height/2-100, 0);
+			gl.glVertex3f(width/2    , height/2+100, 0);
+		gl.glEnd();
 	}
 
 	/**
