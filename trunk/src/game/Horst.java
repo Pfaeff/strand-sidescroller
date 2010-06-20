@@ -10,6 +10,11 @@ import render.Renderer;
 
 import com.sun.opengl.util.Animator;
 
+/**
+ * Initialisiert notwendige Teilsysteme und stellt das ausführbare Programm dar
+ * 
+ * @author Kai
+ */
 public class Horst {
 
 	/**
