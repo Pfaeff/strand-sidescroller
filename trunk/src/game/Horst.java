@@ -6,19 +6,34 @@ import java.awt.event.WindowEvent;
 
 import javax.media.opengl.*;
 
+import render.Renderer;
+
 import com.sun.opengl.util.Animator;
 
-public class Horst implements GLEventListener {
+public class Horst {
 
+	/**
+	 * Main Methode
+	 * @param args Wird nicht benötigt
+	 */
 	public static void main(String[] args) {
 		Frame frame = new Frame("Horst brennt");
+		
+		// OpenGL Capabilites
 		GLCapabilities caps = new GLCapabilities();
 		caps.setAlphaBits(8);
+		
+		// OpenGL Zeichenfläche
 		GLCanvas canvas = new GLCanvas(caps);
 
-		canvas.addGLEventListener(new Horst());
+		// Objekt zum Initialisieren/Neuzeichnen von OpenGL
+		canvas.addGLEventListener(new Renderer());
 		frame.add(canvas);
+		
+		// Fenstergröße
 		frame.setSize(512, 512);
+		
+		// Thread in dem gezeichnet wird
 		final Animator animator = new Animator(canvas);
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -30,27 +45,11 @@ public class Horst implements GLEventListener {
 				}).start();
 			}
 		});
-
+		
+		// Fenster anzeigen
 		frame.setVisible(true);
+		
+		// OpenGL-Thread starten
 		animator.start();
 	}
-
-	public void init(GLAutoDrawable drawable) {
-		GL gl = drawable.getGL();
-		gl.setSwapInterval(0);
-
-	}
-
-	public void display(GLAutoDrawable drawable) {
-
-	}
-
-	public void reshape(GLAutoDrawable drawable, int x, int y, int width,
-			int height) {
-	}
-
-	public void displayChanged(GLAutoDrawable drawable, boolean modeChanged,
-			boolean deviceChanged) {
-	}
-
 }
