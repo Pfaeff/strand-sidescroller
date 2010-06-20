@@ -68,15 +68,7 @@ public class Renderer implements GLEventListener {
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();		
 		
-		/*
-		 * Test (ein Dreieck)
-		 */
-		gl.glColor3f(1.0f, 1.0f, 1.0f);
-		gl.glBegin(GL.GL_TRIANGLES);
-			gl.glVertex3f(width/2-100, height/2-100, 0);  
-			gl.glVertex3f(width/2+100, height/2-100, 0);
-			gl.glVertex3f(width/2    , height/2+100, 0);
-		gl.glEnd();
+		game.draw(gl, width, height);
 	}
 
 	/**
