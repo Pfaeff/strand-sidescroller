@@ -29,16 +29,9 @@ public class Game implements KeyListener {
 		testPos = new Vector2f(0, 0);
 		
 		this.gameTimer = gameTimer;
-		new Thread() {
-			public void run() {
-				while (true) {
-					updateGame();
-				}
-			}
-		}.start();
 	}
 	
-	private synchronized void updateGame() {
+	public void updateGame() {
 		float dt = gameTimer.update();
 		
 		float x = 0;
@@ -62,7 +55,7 @@ public class Game implements KeyListener {
 		testPos = Vector2f.add(testPos, direction);	
 	}
 	
-	public synchronized void draw(GL gl, int width, int height){
+	public void draw(GL gl, int width, int height){
 		/*
 		 * Test (ein Dreieck)
 		 */
