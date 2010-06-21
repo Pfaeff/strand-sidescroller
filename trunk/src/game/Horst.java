@@ -29,10 +29,13 @@ public class Horst {
 	public Horst() {
 		// Fenster initialisieren
 		initFrame();
-		// Spiel initialisieren
-		initGame();	
 		// OpenGL initialisieren
 		initGL();		
+		// Spiel initialisieren
+		initGame();	
+		// Objekt zum Initialisieren/Neuzeichnen von OpenGL
+		canvas.addGLEventListener(new Renderer(game, width, height));	
+		frame.add(canvas);			
 		// Spiel laufen lassen
 		runGame();
 		// Fenster anzeigen
@@ -60,10 +63,7 @@ public class Horst {
 		GLCapabilities caps = new GLCapabilities();
 		caps.setAlphaBits(8);		
 		// OpenGL Zeichenfläche
-		canvas = new GLCanvas(caps);
-		// Objekt zum Initialisieren/Neuzeichnen von OpenGL
-		canvas.addGLEventListener(new Renderer(game, width, height));	
-		frame.add(canvas);		
+		canvas = new GLCanvas(caps);	
 	}
 	
 	private void runGame() {
