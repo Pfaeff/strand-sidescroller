@@ -6,7 +6,6 @@ import java.awt.event.KeyListener;
 import javax.media.opengl.GL;
 
 import math.Vector2f;
-
 import engine.GameTimer;
 
 /**
@@ -27,6 +26,7 @@ public class Game implements KeyListener {
 	
 	public Game(GameTimer gameTimer) {
 		camera = new Camera(new Vector2f(0, 0));
+
 		
 		this.gameTimer = gameTimer;
 	}
@@ -61,11 +61,12 @@ public class Game implements KeyListener {
 		 */
 		camera.apply(gl);
 		gl.glColor3f(1.0f, 1.0f, 1.0f);
-		gl.glBegin(GL.GL_TRIANGLES);
-			gl.glVertex3f(width/2-100, height/2-100, 0);  
-			gl.glVertex3f(width/2+100, height/2-100, 0);
-			gl.glVertex3f(width/2    , height/2+100, 0);
-		gl.glEnd();		
+		gl.glBegin(GL.GL_QUADS);
+			gl.glTexCoord2d(0, 1); gl.glVertex3f(width/2-100, height/2-100, 0);  
+			gl.glTexCoord2d(1, 1); gl.glVertex3f(width/2+100, height/2-100, 0);
+			gl.glTexCoord2d(1, 0); gl.glVertex3f(width/2+100, height/2+100, 0);
+			gl.glTexCoord2d(0, 0); gl.glVertex3f(width/2-100, height/2+100, 0);
+		gl.glEnd();	
 	}
 
 	@Override
