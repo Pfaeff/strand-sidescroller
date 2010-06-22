@@ -1,10 +1,17 @@
 package render;
 
+import java.io.File;
+import java.io.IOException;
+
 import game.Game;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLException;
+
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
 
 /**
  * Kümmert sich um das Rendern der Szene
@@ -16,6 +23,8 @@ public class Renderer implements GLEventListener {
 	final private Game game;
 	final private int width;
 	final private int height;
+	
+	private Texture testTexture;
 	
 	/**
 	 * Konstruktor
@@ -42,6 +51,21 @@ public class Renderer implements GLEventListener {
 		// Backface Culling aktivieren
 		gl.glEnable(GL.GL_CULL_FACE);
 		gl.glCullFace(GL.GL_BACK);
+		// 2D Texturen aktivieren
+		gl.glEnable(GL.GL_TEXTURE_2D);
+		
+		// TEEEST
+		try {
+			testTexture = TextureIO.newTexture(new File("images/background/strand.png"), false);
+			testTexture.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			testTexture.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+		} catch (GLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 	
 	/**
@@ -68,6 +92,9 @@ public class Renderer implements GLEventListener {
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();		
 		
+		// TEST
+		testTexture.enable();
+		testTexture.bind();		
 		game.draw(gl, width, height);
 	}
 
