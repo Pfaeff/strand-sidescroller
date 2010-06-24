@@ -23,8 +23,8 @@ public class Horst {
 	private GameTimer gameTimer;
 	private Game game;
 	
-	final private int width = 800;
-	final private int height = 600; 
+	final private static int width = 800;
+	final private static int height = 600; 
 	
 	public Horst() {
 		// Fenster initialisieren
@@ -88,7 +88,6 @@ public class Horst {
 	 * @param args Wird nicht benötigt
 	 */
 	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		Horst horst = new Horst();
+		new Horst();
 	}
 }
