@@ -16,7 +16,7 @@ final public class GameThread extends Thread {
 	}
 
 	final public void run() {
-		while (runs) {
+		while (isRunning()) {
 			game.updateGame();
 			canvas.display();
 			try {
