@@ -16,6 +16,7 @@ public class Game implements KeyListener {
 	private GameTimer gameTimer;
 	
 	private Camera camera; 
+	private Player player;
 	private float testVelocity = 500;
 	
 	private boolean left = false;
@@ -26,7 +27,7 @@ public class Game implements KeyListener {
 	
 	public Game(GameTimer gameTimer) {
 		camera = new Camera(new Vector2f(0, 0));
-
+		player = new Player();
 		
 		this.gameTimer = gameTimer;
 	}
@@ -52,7 +53,9 @@ public class Game implements KeyListener {
 		}		
 		Vector2f direction = new Vector2f(-x, -y).normalize();
 		direction = direction.scale(testVelocity*dt);
-		camera.move(direction);	
+		player.setAcceleration(direction.scale(250));
+		player.update(dt);
+	//	camera.move(direction);	
 	}
 	
 	public void draw(GL gl, int width, int height){
@@ -60,13 +63,7 @@ public class Game implements KeyListener {
 		 * Test (ein Dreieck)
 		 */
 		camera.apply(gl);
-		gl.glColor3f(1.0f, 1.0f, 1.0f);
-		gl.glBegin(GL.GL_QUADS);
-			gl.glTexCoord2d(0, 1); gl.glVertex3f(width/2-100, height/2-100, 0);  
-			gl.glTexCoord2d(1, 1); gl.glVertex3f(width/2+100, height/2-100, 0);
-			gl.glTexCoord2d(1, 0); gl.glVertex3f(width/2+100, height/2+100, 0);
-			gl.glTexCoord2d(0, 0); gl.glVertex3f(width/2-100, height/2+100, 0);
-		gl.glEnd();	
+		player.draw(gl);
 	}
 
 	@Override
