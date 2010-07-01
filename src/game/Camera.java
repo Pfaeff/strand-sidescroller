@@ -4,8 +4,7 @@ import javax.media.opengl.GL;
 
 import math.Vector2f;
 
-public class Camera {
-	private Vector2f position;
+public class Camera extends Entity {
 	
 	public Camera(Vector2f position) {
 		this.position = position;
@@ -21,5 +20,15 @@ public class Camera {
 	
 	public Vector2f getPosition() {
 		return position;
+	}
+
+	@Override
+	public void update(float dt) {
+		return;
+	}
+
+	@Override
+	public void draw(GL gl) {
+		return;
 	}
 }
