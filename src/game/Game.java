@@ -32,9 +32,7 @@ public class Game implements KeyListener {
 		this.gameTimer = gameTimer;
 	}
 	
-	public void updateGame() {
-		float dt = gameTimer.update();
-		
+	private Vector2f getMovementDirectionVector() {
 		float x = 0;
 		float y = 0;
 		if (left) {
@@ -51,7 +49,14 @@ public class Game implements KeyListener {
 				y = 1;
 			}
 		}		
-		Vector2f direction = new Vector2f(-x, -y).normalize();
+		return new Vector2f(-x, -y).normalize();
+	}
+	
+	public void updateGame() {
+		float dt = gameTimer.update();
+		
+		
+		Vector2f direction = getMovementDirectionVector();
 		direction = direction.scale(testVelocity*dt);
 		player.setAcceleration(direction.scale(250));
 		player.update(dt);
