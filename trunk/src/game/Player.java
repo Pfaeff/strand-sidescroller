@@ -23,14 +23,18 @@ public class Player extends Entity {
 		int width = 100;
 		int height = 100;
 		gl.glPushMatrix();
+		{
 			gl.glTranslatef(-position.getX(), -position.getY(), 0);
 			gl.glColor3f(1.0f, 1.0f, 1.0f);
 			gl.glBegin(GL.GL_QUADS);
+			{
 				gl.glTexCoord2d(0, 1); gl.glVertex3f(width/2-100, height/2-100, 0);  
 				gl.glTexCoord2d(1, 1); gl.glVertex3f(width/2+100, height/2-100, 0);
 				gl.glTexCoord2d(1, 0); gl.glVertex3f(width/2+100, height/2+100, 0);
 				gl.glTexCoord2d(0, 0); gl.glVertex3f(width/2-100, height/2+100, 0);
-			gl.glEnd();		
+			}
+			gl.glEnd();	
+		}
 		gl.glPopMatrix();
 	}
 
