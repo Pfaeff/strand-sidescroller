@@ -17,7 +17,6 @@ public class Game implements KeyListener {
 	
 	private Camera camera; 
 	private Player player;
-	private float testVelocity = 500;
 	
 	private boolean left = false;
 	private boolean right = false;
@@ -57,8 +56,8 @@ public class Game implements KeyListener {
 		
 		
 		Vector2f direction = getMovementDirectionVector();
-		direction = direction.scale(testVelocity*dt);
-		player.setAcceleration(direction.scale(250));
+		direction = direction.scale(dt);
+		player.setDirection(direction);
 		player.update(dt);
 	//	camera.move(direction);	
 	}
