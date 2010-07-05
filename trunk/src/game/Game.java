@@ -70,7 +70,7 @@ public class Game implements KeyListener {
 	//	camera.move(direction);	
 	}
 	
-	public void draw(GL gl, int width, int height){
+	public void render(GL gl, int width, int height){
 		camera.apply(gl);
 		player.draw(gl);
 	}
