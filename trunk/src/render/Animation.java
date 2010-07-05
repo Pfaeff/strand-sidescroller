@@ -61,23 +61,22 @@ public class Animation {
 		time += 1000 * dt;
 		if (time >= duration) {
 			if (loop) {
-				reset();
+				time -= duration;
 			} else {
 				time = duration;
-				posX = numX-1;
-				posY = numY-1;
-			}			
-		} else {
-			float dp = duration / time;
-			posX = (int)Math.floor(dp / numX);		
-			posY = (int)Math.floor(dp / numY);
-			if (posX >= numX) {
-				posX = numX-1;
+				posX = numX - 1;
+				posY = numY - 1;
 			}
-			if (posY >= numY) {
-				posY = numY-1;
-			}
-		}		
+		}
+		int dp = (int)Math.floor(((float)time / (float)duration) * (numX * numY));
+		posX = dp % numX;
+		posY = dp % numY;
+		if (posX >= numX) {
+			posX = numX - 1;
+		}
+		if (posY >= numY) {
+			posY = numY - 1;
+		}
 	}
 	
 	public void render(GL gl) {
