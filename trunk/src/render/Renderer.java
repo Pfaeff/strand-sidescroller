@@ -10,6 +10,8 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLException;
 
+import math.Vector2f;
+
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
 
@@ -24,7 +26,7 @@ public class Renderer implements GLEventListener {
 	final private int width;
 	final private int height;
 	
-	private Texture testTexture;
+	final static private Vector2f playerSize = new Vector2f(64, 128);
 	
 	/**
 	 * Konstruktor
@@ -52,18 +54,24 @@ public class Renderer implements GLEventListener {
 		gl.glEnable(GL.GL_CULL_FACE);
 		gl.glCullFace(GL.GL_BACK);
 		// 2D Texturen aktivieren
-		gl.glEnable(GL.GL_TEXTURE_2D);
+		gl.glEnable(GL.GL_TEXTURE_2D);	
 		
-		// TEEEST
+		/*
+		 * Texturen laden
+		 */
+		Texture horst_stand_tex;
 		try {
-			testTexture = TextureIO.newTexture(new File("images/background/strand.png"), false);
-			testTexture.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			testTexture.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			horst_stand_tex = TextureIO.newTexture(new File("images/animations/horst_stand.jpg"), false);
+			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+			
+			Animation horst_stand = new Animation(horst_stand_tex, 5000, 4, 1, true);	
+			horst_stand.setSize(playerSize);
+			game.getPlayer().setStandAnimation(horst_stand);
+			
 		} catch (GLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
@@ -92,9 +100,6 @@ public class Renderer implements GLEventListener {
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();		
 		
-		// TEST
-		testTexture.enable();
-		testTexture.bind();		
 		game.draw(gl, width, height);
 	}
 
