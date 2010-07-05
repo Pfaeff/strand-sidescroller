@@ -26,6 +26,8 @@ public class Renderer implements GLEventListener {
 	final private int width;
 	final private int height;
 	
+	Background bg;
+	
 	/**
 	 * Konstruktor
 	 * 
@@ -59,6 +61,7 @@ public class Renderer implements GLEventListener {
 		 */
 		Texture horst_stand_tex;
 		Texture horst_walk_tex;
+		Texture background;
 		try {
 			horst_stand_tex = TextureIO.newTexture(new File("images/animations/horst_stand.jpg"), false);
 			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
@@ -75,6 +78,11 @@ public class Renderer implements GLEventListener {
 			Animation horst_walk = new Animation(horst_walk_tex, 1000, 4, 1, true);	
 			game.getPlayer().setWalkAnimation(horst_walk);			
 			
+			background = TextureIO.newTexture(new File("images/background/strand.png"), false);
+			background.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			background.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			
+			bg = new Background(background, width, height);			
 		} catch (GLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -106,7 +114,8 @@ public class Renderer implements GLEventListener {
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();		
 		
-		game.draw(gl, width, height);
+		bg.render(gl);
+		game.render(gl, width, height);
 	}
 
 	/**
