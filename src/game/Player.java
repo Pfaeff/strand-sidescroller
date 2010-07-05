@@ -2,16 +2,26 @@ package game;
 
 import javax.media.opengl.GL;
 
+import render.Animation;
+
 import math.Vector2f;
 
 public class Player extends Entity {
 	private Vector2f direction;
+	private Animation stand;
+	private Animation walk;
+	private boolean moves;
+	private float anim_dt;
 	final static private float velocityLimit = 250;
+	final static private float velocityMinimum = 1;
 	final static private float acceleration = 550000;
 	final static private float friction = 200;
 	
 	public Player() {
 		direction = new Vector2f();
+		stand = new Animation();
+		walk = new Animation();
+		moves = false;
 	}
 
 	@Override
@@ -22,32 +32,42 @@ public class Player extends Entity {
 		if (vL > velocityLimit) {
 			velocity = velocity.normalize().scale(velocityLimit);
 		}
-		position = Vector2f.add(position, velocity.scale(dt));
+		if ((direction.lengthSquare() == 0) && (vL < velocityMinimum)) {
+			moves = false;			
+			velocity = new Vector2f();
+		} else {
+			moves = true;
+			position = Vector2f.add(position, velocity.scale(dt));				
+		}
+		anim_dt = dt;		
 	}
 
 	@Override
 	public void draw(GL gl) {
-		// Test
-		int width = 100;
-		int height = 100;
-		gl.glPushMatrix();
-		{
-			gl.glTranslatef(-position.getX(), -position.getY(), 0);
-			gl.glColor3f(1.0f, 1.0f, 1.0f);
-			gl.glBegin(GL.GL_QUADS);
-			{
-				gl.glTexCoord2d(0, 1); gl.glVertex3f(width/2-100, height/2-100, 0);  
-				gl.glTexCoord2d(1, 1); gl.glVertex3f(width/2+100, height/2-100, 0);
-				gl.glTexCoord2d(1, 0); gl.glVertex3f(width/2+100, height/2+100, 0);
-				gl.glTexCoord2d(0, 0); gl.glVertex3f(width/2-100, height/2+100, 0);
-			}
-			gl.glEnd();	
+		stand.setPosition(position);
+		walk.setPosition(position);
+		if (!moves) {
+			// Stehen
+			stand.update(anim_dt);
+			walk.reset();
+			stand.render(gl);
+		} else {
+			// Gehen
+			walk.update(anim_dt);	
+			walk.render(gl);
 		}
-		gl.glPopMatrix();
 	}
 
 	public void setDirection(Vector2f v) {
 		direction = new Vector2f(v);
+	}
+
+	public void setStandAnimation(Animation stand) {
+		this.stand = stand;
+	}
+
+	public void setWalkAnimation(Animation walk) {
+		this.walk = walk;
 	}
 
 }

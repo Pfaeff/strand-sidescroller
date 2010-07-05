@@ -19,9 +19,28 @@ public class Animation {
 	private Vector2f position;
 	private Vector2f size;
 	
+	public Animation() {
+		this.texture = null;
+		this.duration = 0;
+		this.numX = 1;
+		this.numY = 1;
+		this.loop = false;
+		
+		position = new Vector2f();
+		size = new Vector2f();
+		
+		reset();		
+	}
+	
 	public Animation(Texture texture, int duration, int numX, int numY, boolean loop) {
 		this.texture = texture;
 		this.duration = duration;
+		if (numX < 1) {
+			numX = 1;
+		}
+		if (numY < 1) {
+			numY = 1;
+		}
 		this.numX = numX;
 		this.numY = numY;
 		this.loop = loop;
@@ -40,24 +59,41 @@ public class Animation {
 	
 	public void update(float dt) {
 		time += 1000 * dt;
-		if ((time >= duration) && (loop)) {
-			reset();
+		if (time >= duration) {
+			if (loop) {
+				reset();
+			} else {
+				time = duration;
+				posX = numX-1;
+				posY = numY-1;
+			}			
 		} else {
 			float dp = duration / time;
-			posX = (int)Math.ceil(dp / numX);		
-			posY = (int)Math.ceil(dp / numY);
+			posX = (int)Math.floor(dp / numX);		
+			posY = (int)Math.floor(dp / numY);
+			if (posX >= numX) {
+				posX = numX-1;
+			}
+			if (posY >= numY) {
+				posY = numY-1;
+			}
 		}		
 	}
 	
 	public void render(GL gl) {
 		gl.glPushMatrix();
 		{
-			texture.bind();
-			int lX = numX / posX;
-			int lY = numY / posY;
-			int rX = lX + (1 / numX);
-			int rY = lY + (1 / numY);
-			gl.glTranslatef(-position.getX(), -position.getY(), 0);
+			if (texture != null) {
+				texture.bind();
+			}
+			float lX = posX / (float)numX;
+			float lY = posY / (float)numY;
+			float rX = lX + (1 / (float)numX);
+			float rY = lY + (1 / (float)numY);
+			
+			System.out.println(posX + " " + lX);
+			
+			gl.glTranslatef(position.getX(), position.getY(), 0);
 			gl.glScalef(0.5f, 0.5f, 1f);
 			gl.glScalef(size.getX(), size.getY(), 1);
 			gl.glBegin(GL.GL_QUADS);
@@ -65,7 +101,7 @@ public class Animation {
 				gl.glTexCoord2d(lX, rY); gl.glVertex3f(-1, -1, 0);
 				gl.glTexCoord2d(rX, rY); gl.glVertex3f( 1, -1, 0);
 				gl.glTexCoord2d(rX, lY); gl.glVertex3f( 1,  1, 0);
-				gl.glTexCoord2d(lX, lY); gl.glVertex3f(-1,  1, 0);
+				gl.glTexCoord2d(lX, lY); gl.glVertex3f(-1,  1, 0);			
 			}
 			gl.glEnd();
 		}
@@ -103,4 +139,5 @@ public class Animation {
 	public Vector2f getSize() {
 		return size;
 	}
+	
 }

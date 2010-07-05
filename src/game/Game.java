@@ -2,8 +2,16 @@ package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GLException;
+
+import render.Animation;
+
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
 
 import math.Vector2f;
 import engine.GameTimer;
@@ -27,7 +35,7 @@ public class Game implements KeyListener {
 	public Game(GameTimer gameTimer) {
 		camera = new Camera(new Vector2f(0, 0));
 		player = new Player();
-		
+		player.setPosition(new Vector2f(100, 100));
 		this.gameTimer = gameTimer;
 	}
 	
@@ -48,7 +56,7 @@ public class Game implements KeyListener {
 				y = 1;
 			}
 		}		
-		return new Vector2f(-x, -y).normalize();
+		return new Vector2f(x, y).normalize();
 	}
 	
 	public void updateGame() {
@@ -63,9 +71,6 @@ public class Game implements KeyListener {
 	}
 	
 	public void draw(GL gl, int width, int height){
-		/*
-		 * Test (ein Dreieck)
-		 */
 		camera.apply(gl);
 		player.draw(gl);
 	}
@@ -122,6 +127,10 @@ public class Game implements KeyListener {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public Player getPlayer() {
+		return player;
 	}
 
 }
