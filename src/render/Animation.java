@@ -63,9 +63,9 @@ public class Animation {
 			gl.glBegin(GL.GL_QUADS);
 			{
 				gl.glTexCoord2d(lX, rY); gl.glVertex3f(-1, -1, 0);
-				gl.glTexCoord2d(rX, rY); gl.glVertex3f(1, -1, 0);
-				gl.glTexCoord2d(rX, lY); gl.glVertex3f(1, 1, 0);
-				gl.glTexCoord2d(lX, lY); gl.glVertex3f(-1, 1, 0);
+				gl.glTexCoord2d(rX, rY); gl.glVertex3f( 1, -1, 0);
+				gl.glTexCoord2d(rX, lY); gl.glVertex3f( 1,  1, 0);
+				gl.glTexCoord2d(lX, lY); gl.glVertex3f(-1,  1, 0);
 			}
 			gl.glEnd();
 		}
