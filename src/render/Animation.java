@@ -61,7 +61,7 @@ public class Animation {
 		time += 1000 * dt;
 		if (time >= duration) {
 			if (loop) {
-				time -= duration;
+				reset();
 			} else {
 				time = duration;
 				posX = numX - 1;
@@ -89,8 +89,6 @@ public class Animation {
 			float lY = posY / (float)numY;
 			float rX = lX + (1 / (float)numX);
 			float rY = lY + (1 / (float)numY);
-			
-			System.out.println(posX + " " + lX);
 			
 			gl.glTranslatef(position.getX(), position.getY(), 0);
 			gl.glScalef(0.5f, 0.5f, 1f);
