@@ -11,17 +11,20 @@ public class Player extends Entity {
 	private Animation stand;
 	private Animation walk;
 	private boolean moves;
+	private boolean movesLeft;
 	private float anim_dt;
 	final static private float velocityLimit = 250;
 	final static private float velocityMinimum = 1;
 	final static private float acceleration = 550000;
 	final static private float friction = 200;
+	final static private Vector2f playerSize = new Vector2f(50, 100);
 	
 	public Player() {
 		direction = new Vector2f();
 		stand = new Animation();
 		walk = new Animation();
 		moves = false;
+		movesLeft = false;
 	}
 
 	@Override
@@ -39,6 +42,15 @@ public class Player extends Entity {
 			moves = true;
 			position = Vector2f.add(position, velocity.scale(dt));				
 		}
+		
+		if (velocity.getX() < 0) {
+			movesLeft = true;
+		} else {
+			if (velocity.getX() > 0) {
+				movesLeft = false;
+			}
+		}
+		
 		anim_dt = dt;		
 	}
 
@@ -50,11 +62,11 @@ public class Player extends Entity {
 			// Stehen
 			stand.update(anim_dt);
 			walk.reset();
-			stand.render(gl);
+			stand.render(gl, movesLeft, false);
 		} else {
 			// Gehen
 			walk.update(anim_dt);	
-			walk.render(gl);
+			walk.render(gl, movesLeft, false);
 		}
 	}
 
@@ -63,10 +75,12 @@ public class Player extends Entity {
 	}
 
 	public void setStandAnimation(Animation stand) {
+		stand.setSize(playerSize);
 		this.stand = stand;
 	}
 
 	public void setWalkAnimation(Animation walk) {
+		walk.setSize(playerSize);
 		this.walk = walk;
 	}
 

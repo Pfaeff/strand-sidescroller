@@ -79,7 +79,7 @@ public class Animation {
 		}
 	}
 	
-	public void render(GL gl) {
+	public void render(GL gl, boolean flipHorizontally, boolean flipVertically) {
 		gl.glPushMatrix();
 		{
 			if (texture != null) {
@@ -89,6 +89,18 @@ public class Animation {
 			float lY = posY / (float)numY;
 			float rX = lX + (1 / (float)numX);
 			float rY = lY + (1 / (float)numY);
+			
+			if (flipHorizontally) {
+				float tmpX = lX;
+				lX = rX;
+				rX = tmpX;
+			}
+			
+			if (flipVertically) {
+				float tmpY = lY;
+				lY = rY;
+				rY = tmpY;
+			}			
 			
 			gl.glTranslatef(position.getX(), position.getY(), 0);
 			gl.glScalef(0.5f, 0.5f, 1f);

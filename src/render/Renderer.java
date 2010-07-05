@@ -26,8 +26,6 @@ public class Renderer implements GLEventListener {
 	final private int width;
 	final private int height;
 	
-	final static private Vector2f playerSize = new Vector2f(64, 128);
-	
 	/**
 	 * Konstruktor
 	 * 
@@ -67,7 +65,6 @@ public class Renderer implements GLEventListener {
 			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 			
 			Animation horst_stand = new Animation(horst_stand_tex, 5000, 4, 1, true);	
-			horst_stand.setSize(playerSize);
 			game.getPlayer().setStandAnimation(horst_stand);
 
 			
@@ -76,7 +73,6 @@ public class Renderer implements GLEventListener {
 			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 			
 			Animation horst_walk = new Animation(horst_walk_tex, 1000, 4, 1, true);	
-			horst_walk.setSize(playerSize);
 			game.getPlayer().setWalkAnimation(horst_walk);			
 			
 		} catch (GLException e) {
