@@ -60,6 +60,7 @@ public class Renderer implements GLEventListener {
 		 * Texturen laden
 		 */
 		Texture horst_stand_tex;
+		Texture horst_walk_tex;
 		try {
 			horst_stand_tex = TextureIO.newTexture(new File("images/animations/horst_stand.jpg"), false);
 			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
@@ -68,6 +69,15 @@ public class Renderer implements GLEventListener {
 			Animation horst_stand = new Animation(horst_stand_tex, 5000, 4, 1, true);	
 			horst_stand.setSize(playerSize);
 			game.getPlayer().setStandAnimation(horst_stand);
+
+			
+			horst_walk_tex = TextureIO.newTexture(new File("images/animations/horst_walk.jpg"), false);
+			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+			
+			Animation horst_walk = new Animation(horst_walk_tex, 1000, 4, 1, true);	
+			horst_walk.setSize(playerSize);
+			game.getPlayer().setWalkAnimation(horst_walk);			
 			
 		} catch (GLException e) {
 			e.printStackTrace();
