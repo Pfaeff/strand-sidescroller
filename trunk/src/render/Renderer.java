@@ -1,16 +1,14 @@
 package render;
 
+import game.Game;
+
 import java.io.File;
 import java.io.IOException;
-
-import game.Game;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLException;
-
-import math.Vector2f;
 
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
