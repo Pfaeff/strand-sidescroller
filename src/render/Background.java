@@ -21,7 +21,7 @@ public class Background {
 			if (texture != null) {
 				texture.bind();
 			}
-			gl.glTranslatef(width/2, height/2, 0);
+			gl.glTranslatef(width/2.0f, height/2.0f, 0);
 			gl.glScalef(0.5f, 0.5f, 1f);
 			gl.glScalef(width, height, 1);
 			gl.glBegin(GL.GL_QUADS);

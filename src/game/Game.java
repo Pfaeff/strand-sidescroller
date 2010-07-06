@@ -2,16 +2,8 @@ package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
 
 import javax.media.opengl.GL;
-import javax.media.opengl.GLException;
-
-import render.Animation;
-
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureIO;
 
 import math.Vector2f;
 import engine.GameTimer;
