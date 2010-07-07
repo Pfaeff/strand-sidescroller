@@ -15,8 +15,8 @@ public class Player extends Entity {
 	private float anim_dt;
 	final static private float velocityLimit = 250;
 	final static private float velocityMinimum = 1;
-	final static private float acceleration = 550000;
-	final static private float friction = 200;
+	final static private float acceleration = 600000;
+	final static private float friction = 400;
 	final static private Vector2f playerSize = new Vector2f(50, 100);
 	
 	public Player() {
