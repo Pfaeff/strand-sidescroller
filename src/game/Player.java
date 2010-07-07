@@ -16,10 +16,10 @@ public class Player extends Entity implements ICollidable {
 	private boolean moves;
 	private boolean movesLeft;
 	private float anim_dt;
-	final static private float velocityLimit = 250;
-	final static private float velocityMinimum = 1;
-	final static private float acceleration = 600000;
-	final static private float friction = 400;
+	final static private float velocityLimit = 300;
+	final static private float velocityMinimum = 20;
+	final static private float acceleration = 500000;
+	final static private float friction = 4f;
 	final static private Vector2f playerSize = new Vector2f(50, 100);
 	
 	public Player() {
@@ -34,8 +34,10 @@ public class Player extends Entity implements ICollidable {
 
 	@Override
 	public void update(float dt) {
-		velocity = Vector2f.add(velocity, direction.scale(acceleration * dt));
-		velocity = Vector2f.sub(velocity, velocity.normalize().scale(friction*dt));
+		// a = F/m und m=1 ^^ Die beiden wirkenden Kräfte sind die Tasten der Tastatur ;) und die Reibung,
+		// die von der Geschwindigkeit abhängt und in entgegengesetzter Richtung wirkt
+		Vector2f acc = Vector2f.sub(direction.scale(acceleration), velocity.scale(friction)).scale(dt); 
+		velocity = Vector2f.add(velocity, acc);
 		float vL = velocity.length();
 		if (vL > velocityLimit) {
 			velocity = velocity.normalize().scale(velocityLimit);
