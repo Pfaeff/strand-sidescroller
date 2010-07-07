@@ -1,14 +1,13 @@
 package game;
 
-import engine.GameThread;
-import engine.GameTimer;
-
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLCapabilities;
+
+import com.sun.opengl.util.Animator;
 
 import render.Renderer;
 
@@ -57,18 +56,18 @@ public class Horst {
 	
 	private void runGame() {
 		// Spielschleife
-		final GameThread gameThread = new GameThread(canvas);		
+		final Animator gameThread = new Animator(canvas);		
 		// Thread in dem gezeichnet wird
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				new Thread(new Runnable() {
 					public void run() {
-						gameThread.endGameLoop();
+						gameThread.stop();
 						System.exit(0);
 					}
 				}).start();
 			}
-		});			
+		});		
 		gameThread.start();				
 	}
 

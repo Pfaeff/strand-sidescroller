@@ -67,6 +67,7 @@ public class Renderer implements GLEventListener {
 		// Game erzeugen (muss leider erfolgen, nachdem ein OpenGL-Thread steht)
 		GameTimer gameTimer = new GameTimer();
 		game = new Game(gameTimer);
+		
 		// Tastensteuerung
 		frame.addKeyListener(game);				
 	}
@@ -99,6 +100,16 @@ public class Renderer implements GLEventListener {
 		
 		bg.render(gl);
 		game.render(this, gl, width, height);
+		
+		/*
+		 * Ohne das hier kommt der Thread für die Tasteneingaben nie dran 
+		 * (der Animator sollte sich da aber eigentlich schon drum kümmern ....)
+		 */
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

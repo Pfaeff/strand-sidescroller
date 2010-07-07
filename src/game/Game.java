@@ -3,6 +3,7 @@ package game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 import javax.media.opengl.GL;
@@ -28,6 +29,9 @@ public class Game implements KeyListener {
 	private boolean right = false;
 	private boolean up = false;
 	private boolean down = false;
+	
+	// TEST
+	private int collectedMilks = 0;
 				
 	
 	public Game(GameTimer gameTimer) {
@@ -39,9 +43,9 @@ public class Game implements KeyListener {
 		
 		// Test
 		Random r = new Random();
-		for (int i=0; i<6; i++) {
+		for (int i=1; i<=10; i++) {
 			SunMilk m = new SunMilk();
-			m.setPosition(new Vector2f(r.nextInt(800), r.nextInt(800)));
+			m.setPosition(new Vector2f(r.nextInt(1000), r.nextInt(500)));
 			entities.add(m);			
 		}
 	}
@@ -69,19 +73,30 @@ public class Game implements KeyListener {
 	public void updateGame() {
 		float dt = gameTimer.update();
 		
-		
 		Vector2f direction = getMovementDirectionVector();
 		direction = direction.scale(dt);
 		player.setDirection(direction);
 		player.update(dt);
 	//	camera.move(direction);	
+		
+		Iterator<Entity> it = entities.iterator();
+		while (it.hasNext()) {
+			Entity e = it.next();
+			if (e instanceof SunMilk) {
+				if (player.collidesWith((ICollidable)e)) {
+					it.remove();
+					collectedMilks++;
+					System.out.println("Eingesammelte Sonnencreme: " + collectedMilks);
+				}
+			}
+		}
 	}
 	
 	public void render(Renderer renderer, GL gl, int width, int height){
 		camera.apply(gl);
 		player.draw(renderer, gl);
-		for (Entity m : entities) {
-			m.draw(renderer, gl);
+		for (Entity e : entities) {
+			e.draw(renderer, gl);
 		}
 	}
 
