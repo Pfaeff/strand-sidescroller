@@ -4,6 +4,7 @@ import javax.media.opengl.GL;
 
 import render.Animation;
 import render.Renderer;
+import render.TextureManager;
 
 import math.Vector2f;
 
@@ -22,8 +23,10 @@ public class Player extends Entity {
 	
 	public Player() {
 		direction = new Vector2f();
-		stand = new Animation();
-		walk = new Animation();
+		stand = new Animation(TextureManager.horst_stand_tex, 5000, 4, 1, true);	
+		stand.setSize(playerSize);
+		walk = new Animation(TextureManager.horst_walk_tex, 1000, 4, 1, true);	
+		walk.setSize(playerSize);
 		moves = false;
 		movesLeft = false;
 	}

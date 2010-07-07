@@ -3,6 +3,7 @@ package game;
 import javax.media.opengl.GL;
 
 import render.Renderer;
+import render.TextureManager;
 
 public class SunMilk extends Entity {	
 	final static private int width = 25;
@@ -12,8 +13,8 @@ public class SunMilk extends Entity {
 	public void draw(Renderer renderer, GL gl) {
 		gl.glPushMatrix();
 		{
-			if (renderer.sunmilk_tex != null) {
-				renderer.sunmilk_tex.bind();
+			if (TextureManager.sunmilk_tex != null) {
+				TextureManager.sunmilk_tex.bind();
 			}
 			gl.glTranslatef(position.getX(), position.getY(), 0);
 			gl.glScalef(0.5f, 0.5f, 1f);
