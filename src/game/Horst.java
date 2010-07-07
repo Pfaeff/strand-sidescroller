@@ -20,8 +20,6 @@ import render.Renderer;
 public class Horst {
 	private Frame frame;
 	private GLCanvas canvas;
-	private GameTimer gameTimer;
-	private Game game;
 	
 	final private static int width = 800;
 	final private static int height = 600; 
@@ -31,10 +29,8 @@ public class Horst {
 		initFrame();
 		// OpenGL initialisieren
 		initGL();		
-		// Spiel initialisieren
-		initGame();	
 		// Objekt zum Initialisieren/Neuzeichnen von OpenGL
-		canvas.addGLEventListener(new Renderer(game, width, height));	
+		canvas.addGLEventListener(new Renderer(frame, width, height));	
 		frame.add(canvas);			
 		// Spiel laufen lassen
 		runGame();
@@ -51,13 +47,6 @@ public class Horst {
 		frame.setLocationRelativeTo(null);		
 	}
 	
-	private void initGame() {
-		gameTimer = new GameTimer();
-		game = new Game(gameTimer);
-		// Tastensteuerung
-		frame.addKeyListener(game);				
-	}
-	
 	private void initGL() {
 		// OpenGL Capabilites
 		GLCapabilities caps = new GLCapabilities();
@@ -68,7 +57,7 @@ public class Horst {
 	
 	private void runGame() {
 		// Spielschleife
-		final GameThread gameThread = new GameThread(game, canvas);		
+		final GameThread gameThread = new GameThread(canvas);		
 		// Thread in dem gezeichnet wird
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

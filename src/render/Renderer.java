@@ -1,7 +1,9 @@
 package render;
 
+import engine.GameTimer;
 import game.Game;
 
+import java.awt.Frame;
 import java.io.File;
 import java.io.IOException;
 
@@ -20,11 +22,10 @@ import com.sun.opengl.util.texture.TextureIO;
  */
 public class Renderer implements GLEventListener {
 	
-	final private Game game;
+	private Game game;
+	final private Frame frame;
 	final private int width;
 	final private int height;
-	
-	public Texture sunmilk_tex;
 	
 	Background bg;
 	
@@ -34,8 +35,8 @@ public class Renderer implements GLEventListener {
 	 * @param width Fensterbreite
 	 * @param height Fensterhöhe
 	 */
-	public Renderer(Game game, int width, int height) {
-		this.game = game;
+	public Renderer(Frame frame, int width, int height) {
+		this.frame = frame;
 		this.width = width;
 		this.height = height;
 	}
@@ -59,39 +60,15 @@ public class Renderer implements GLEventListener {
 		/*
 		 * Texturen laden
 		 */
-		Texture horst_stand_tex;
-		Texture horst_walk_tex;
-		Texture background;
-		try {
-			horst_stand_tex = TextureIO.newTexture(new File("images/animations/horst_stand.jpg"), false);
-			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-			
-			Animation horst_stand = new Animation(horst_stand_tex, 5000, 4, 1, true);	
-			game.getPlayer().setStandAnimation(horst_stand);
-
-			
-			horst_walk_tex = TextureIO.newTexture(new File("images/animations/horst_walk.jpg"), false);
-			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-			
-			Animation horst_walk = new Animation(horst_walk_tex, 1000, 4, 1, true);	
-			game.getPlayer().setWalkAnimation(horst_walk);			
-			
-			background = TextureIO.newTexture(new File("images/background/strand.png"), false);
-			background.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			background.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
-			
-			bg = new Background(background, width, height);		
-			
-			sunmilk_tex = TextureIO.newTexture(new File("images/static/sunmilk.jpg"), false);
-			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-		} catch (GLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}		
+		TextureManager.loadTextures();
+		// Hintergrund erzeugen (das muss noch irgendwo anders rein)
+		bg = new Background(TextureManager.background, width, height);		
+		
+		// Game erzeugen (muss leider erfolgen, nachdem ein OpenGL-Thread steht)
+		GameTimer gameTimer = new GameTimer();
+		game = new Game(gameTimer);
+		// Tastensteuerung
+		frame.addKeyListener(game);				
 	}
 	
 	/**
@@ -110,6 +87,8 @@ public class Renderer implements GLEventListener {
 	 * Sorgt dafür, dass alles neugezeichnet wird
 	 */
 	public void display(GLAutoDrawable drawable) {
+		game.updateGame();
+		
 		GL gl = drawable.getGL();
 		
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
