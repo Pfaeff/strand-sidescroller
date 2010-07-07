@@ -2,6 +2,8 @@ package game;
 
 import javax.media.opengl.GL;
 
+import render.Renderer;
+
 import math.Vector2f;
 
 public abstract class Entity {
@@ -10,7 +12,7 @@ public abstract class Entity {
 	
 	public abstract void update(float dt);
 	
-	public abstract void draw(GL gl);
+	public abstract void draw(Renderer renderer, GL gl);
 
 	public void setPosition(Vector2f position) {
 		this.position = position;

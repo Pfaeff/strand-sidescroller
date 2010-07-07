@@ -24,6 +24,8 @@ public class Renderer implements GLEventListener {
 	final private int width;
 	final private int height;
 	
+	public Texture sunmilk_tex;
+	
 	Background bg;
 	
 	/**
@@ -80,7 +82,11 @@ public class Renderer implements GLEventListener {
 			background.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			background.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
 			
-			bg = new Background(background, width, height);			
+			bg = new Background(background, width, height);		
+			
+			sunmilk_tex = TextureIO.newTexture(new File("images/static/sunmilk.jpg"), false);
+			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		} catch (GLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -113,7 +119,7 @@ public class Renderer implements GLEventListener {
 		gl.glLoadIdentity();		
 		
 		bg.render(gl);
-		game.render(gl, width, height);
+		game.render(this, gl, width, height);
 	}
 
 	/**
