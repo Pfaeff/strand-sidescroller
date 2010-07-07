@@ -101,12 +101,8 @@ public class Renderer implements GLEventListener {
 		bg.render(gl);
 		game.render(this, gl, width, height);
 		
-		/*
-		 * Ohne das hier kommt der Thread für die Tasteneingaben nie dran 
-		 * (der Animator sollte sich da aber eigentlich schon drum kümmern ....)
-		 */
 		try {
-			Thread.sleep(1);
+			Thread.sleep(2);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
