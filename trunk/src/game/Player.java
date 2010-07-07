@@ -91,14 +91,12 @@ public class Player extends Entity implements ICollidable {
 
 	@Override
 	public boolean collidesWith(ICollidable c) {
-		// TODO Auto-generated method stub
-		return false;
+		return Rectangle.intersect(getRectangle(), c.getRectangle());
 	}
 
 	@Override
 	public Rectangle getRectangle() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Rectangle(Vector2f.sub(position, playerSize.scale(0.5f)), Vector2f.add(position, playerSize.scale(0.5f)));
 	}
 
 }

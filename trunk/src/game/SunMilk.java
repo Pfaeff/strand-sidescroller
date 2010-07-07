@@ -3,6 +3,7 @@ package game;
 import javax.media.opengl.GL;
 
 import math.Rectangle;
+import math.Vector2f;
 
 import render.Renderer;
 import render.TextureManager;
@@ -39,13 +40,11 @@ public class SunMilk extends Entity implements ICollidable {
 
 	@Override
 	public boolean collidesWith(ICollidable c) {
-		// TODO Auto-generated method stub
-		return false;
+		return Rectangle.intersect(getRectangle(), c.getRectangle());
 	}
 
 	@Override
 	public Rectangle getRectangle() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Rectangle(Vector2f.sub(position, new Vector2f(width/2, height/2)), Vector2f.add(position, new Vector2f(width/2, height/2)));
 	}
 }
