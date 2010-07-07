@@ -2,6 +2,8 @@ package game;
 
 import javax.media.opengl.GL;
 
+import render.Renderer;
+
 import math.Vector2f;
 
 public class Camera extends Entity {
@@ -28,7 +30,7 @@ public class Camera extends Entity {
 	}
 
 	@Override
-	public void draw(GL gl) {
+	public void draw(Renderer renderer, GL gl) {
 		return;
 	}
 }

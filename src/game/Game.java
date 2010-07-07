@@ -2,8 +2,12 @@ package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.media.opengl.GL;
+
+import render.Renderer;
 
 import math.Vector2f;
 import engine.GameTimer;
@@ -18,6 +22,8 @@ public class Game implements KeyListener {
 	private Camera camera; 
 	private Player player;
 	
+	private ArrayList<Entity> entities;
+	
 	private boolean left = false;
 	private boolean right = false;
 	private boolean up = false;
@@ -27,8 +33,17 @@ public class Game implements KeyListener {
 	public Game(GameTimer gameTimer) {
 		camera = new Camera(new Vector2f(0, 0));
 		player = new Player();
+		entities = new ArrayList<Entity>();
 		player.setPosition(new Vector2f(100, 100));
 		this.gameTimer = gameTimer;
+		
+		// Test
+		Random r = new Random();
+		for (int i=0; i<6; i++) {
+			SunMilk m = new SunMilk();
+			m.setPosition(new Vector2f(r.nextInt(800), r.nextInt(800)));
+			entities.add(m);			
+		}
 	}
 	
 	private Vector2f getMovementDirectionVector() {
@@ -62,9 +77,12 @@ public class Game implements KeyListener {
 	//	camera.move(direction);	
 	}
 	
-	public void render(GL gl, int width, int height){
+	public void render(Renderer renderer, GL gl, int width, int height){
 		camera.apply(gl);
-		player.draw(gl);
+		player.draw(renderer, gl);
+		for (Entity m : entities) {
+			m.draw(renderer, gl);
+		}
 	}
 
 	@Override

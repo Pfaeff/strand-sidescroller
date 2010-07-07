@@ -3,6 +3,7 @@ package game;
 import javax.media.opengl.GL;
 
 import render.Animation;
+import render.Renderer;
 
 import math.Vector2f;
 
@@ -55,7 +56,7 @@ public class Player extends Entity {
 	}
 
 	@Override
-	public void draw(GL gl) {
+	public void draw(Renderer renderer, GL gl) {
 		stand.setPosition(position);
 		walk.setPosition(position);
 		if (!moves) {
