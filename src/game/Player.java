@@ -6,9 +6,10 @@ import render.Animation;
 import render.Renderer;
 import render.TextureManager;
 
+import math.Rectangle;
 import math.Vector2f;
 
-public class Player extends Entity {
+public class Player extends Entity implements ICollidable {
 	private Vector2f direction;
 	private Animation stand;
 	private Animation walk;
@@ -86,6 +87,18 @@ public class Player extends Entity {
 	public void setWalkAnimation(Animation walk) {
 		walk.setSize(playerSize);
 		this.walk = walk;
+	}
+
+	@Override
+	public boolean collidesWith(ICollidable c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Rectangle getRectangle() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

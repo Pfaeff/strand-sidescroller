@@ -2,10 +2,12 @@ package game;
 
 import javax.media.opengl.GL;
 
+import math.Rectangle;
+
 import render.Renderer;
 import render.TextureManager;
 
-public class SunMilk extends Entity {	
+public class SunMilk extends Entity implements ICollidable {	
 	final static private int width = 25;
 	final static private int height = 50;
 
@@ -33,5 +35,17 @@ public class SunMilk extends Entity {
 
 	@Override
 	public void update(float dt) {
+	}
+
+	@Override
+	public boolean collidesWith(ICollidable c) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Rectangle getRectangle() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
