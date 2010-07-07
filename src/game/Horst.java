@@ -21,8 +21,8 @@ public class Horst {
 	private Frame frame;
 	private GLCanvas canvas;
 	
-	final private static int width = 800;
-	final private static int height = 600; 
+	final private static int width = 1000;
+	final private static int height = 500; 
 	
 	public Horst() {
 		// Fenster initialisieren
