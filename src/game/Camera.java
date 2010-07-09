@@ -8,8 +8,11 @@ import math.Vector2f;
 
 public class Camera extends Entity {
 	
-	public Camera(Vector2f position) {
+	private Vector2f velocity;
+	
+	public Camera(Vector2f position, Vector2f velocity) {
 		this.position = position;
+		this.velocity = velocity;
 	}
 	
 	public void move(Vector2f amount) {
@@ -26,7 +29,7 @@ public class Camera extends Entity {
 
 	@Override
 	public void update(float dt) {
-		return;
+		position = Vector2f.add(position, velocity.scale(dt));
 	}
 
 	@Override

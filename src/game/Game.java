@@ -8,7 +8,9 @@ import java.util.Random;
 
 import javax.media.opengl.GL;
 
+import render.Background;
 import render.Renderer;
+import render.TextureManager;
 
 import math.Vector2f;
 import engine.GameTimer;
@@ -23,6 +25,7 @@ public class Game implements KeyListener {
 	private Camera camera; 
 	private Player player;
 	
+	private Background bg;
 	private ArrayList<Entity> entities;
 	
 	private boolean left = false;
@@ -34,12 +37,14 @@ public class Game implements KeyListener {
 	private int collectedMilks = 0;
 				
 	
-	public Game(GameTimer gameTimer) {
-		camera = new Camera(new Vector2f(0, 0));
+	public Game(GameTimer gameTimer, int width, int height) {
+		camera = new Camera(new Vector2f(0, 0), new Vector2f(50, 0));
 		player = new Player();
 		entities = new ArrayList<Entity>();
 		player.setPosition(new Vector2f(100, 100));
 		this.gameTimer = gameTimer;
+		
+		bg = new Background(TextureManager.background, width, height);
 		
 		// Test
 		Random r = new Random();
@@ -83,7 +88,7 @@ public class Game implements KeyListener {
 		direction = direction.scale(dt);
 		player.setDirection(direction);
 		player.update(dt);
-	//	camera.move(direction);	
+		camera.update(dt);
 		
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext()) {
@@ -108,6 +113,7 @@ public class Game implements KeyListener {
 	
 	public void render(Renderer renderer, GL gl, int width, int height){
 		camera.apply(gl);
+		bg.render(gl);
 		player.draw(renderer, gl);
 		for (Entity e : entities) {
 			e.draw(renderer, gl);
