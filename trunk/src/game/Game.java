@@ -41,10 +41,10 @@ public class Game implements KeyListener {
 				
 	
 	public Game(GameTimer gameTimer, int width, int height) {
-		camera = new Camera(new Vector2f(0, 0), new Vector2f(50, 0));
+		camera = new Camera(new Vector2f(0, 0), new Vector2f(80, 0));
 		player = new Player();
 		entities = new ArrayList<Entity>();
-		player.setPosition(new Vector2f(100, 100));
+		player.setPosition(new Vector2f(width/2.0f, height/2.0f));
 		this.gameTimer = gameTimer;
 		this.width = width;
 		this.height = height;
@@ -110,8 +110,8 @@ public class Game implements KeyListener {
 			player.setPosition(new Vector2f(player.getPosition().getX(), player.getPlayerSize().getY()/2.0f));
 		}		
 		// oben
-		if (((player.getPosition().getY()+(player.getPlayerSize().getY()/2.0f)) >= height)) {
-			player.setPosition(new Vector2f(player.getPosition().getX(), height - (player.getPlayerSize().getY()/2.0f)));
+		if (((player.getPosition().getY()+(player.getPlayerSize().getY()/2.0f)) >= (height-50))) {
+			player.setPosition(new Vector2f(player.getPosition().getX(), (height-50) - (player.getPlayerSize().getY()/2.0f)));
 		}			
 		// Kollision
 		Iterator<Entity> it = entities.iterator();
