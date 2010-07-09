@@ -83,6 +83,8 @@ public class Animation {
 	}
 	
 	public void render(GL gl, boolean flipHorizontally, boolean flipVertically) {
+		gl.glEnable(GL.GL_ALPHA_TEST);
+		gl.glAlphaFunc(GL.GL_GREATER, 0.1f);			
 		gl.glPushMatrix();
 		{
 			if (texture != null) {
@@ -118,6 +120,7 @@ public class Animation {
 			gl.glEnd();
 		}
 		gl.glPopMatrix();
+		gl.glDisable(GL.GL_ALPHA_TEST);		
 	}
 
 	public void setDuration(int duration) {
