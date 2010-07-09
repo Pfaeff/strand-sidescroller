@@ -22,13 +22,12 @@ public class Background {
 				texture.bind();
 			}
 			gl.glTranslatef(width/2.0f, height/2.0f, 0);
-			gl.glScalef(0.5f, 0.5f, 1f);
-			gl.glScalef(width, height, 1);
+			gl.glScalef(width, height/2, 1);
 			gl.glBegin(GL.GL_QUADS);
 			{
 				gl.glTexCoord2d(0, 1); gl.glVertex3f(-1, -1, -10);
-				gl.glTexCoord2d(1, 1); gl.glVertex3f( 1, -1, -10);
-				gl.glTexCoord2d(1, 0); gl.glVertex3f( 1,  1, -10);
+				gl.glTexCoord2d(2, 1); gl.glVertex3f( 1, -1, -10);
+				gl.glTexCoord2d(2, 0); gl.glVertex3f( 1,  1, -10);
 				gl.glTexCoord2d(0, 0); gl.glVertex3f(-1,  1, -10);			
 			}
 			gl.glEnd();
