@@ -25,6 +25,8 @@ public class Game implements KeyListener {
 	
 	private Camera camera; 
 	private Player player;
+	final private int width;
+	final private int height;
 	
 	private Background bg;
 	private ArrayList<Entity> entities;
@@ -44,6 +46,8 @@ public class Game implements KeyListener {
 		entities = new ArrayList<Entity>();
 		player.setPosition(new Vector2f(100, 100));
 		this.gameTimer = gameTimer;
+		this.width = width;
+		this.height = height;
 		
 		bg = new Background(TextureManager.background, camera, width, height);
 		
@@ -92,6 +96,24 @@ public class Game implements KeyListener {
 		camera.update(dt);
 		bg.update(dt);
 		
+		// Kollision (Boundaries)
+		// links
+		if (((player.getPosition().getX()-(player.getPlayerSize().getX()/2.0f)) <= camera.getPosition().getX())) {
+			player.setPosition(new Vector2f(camera.getPosition().getX() + (player.getPlayerSize().getX()/2.0f), player.getPosition().getY()));
+		}
+		// rechts
+		if (((player.getPosition().getX()+(player.getPlayerSize().getX()/2.0f)) >= (camera.getPosition().getX()+width))) {
+			player.setPosition(new Vector2f(camera.getPosition().getX() - (player.getPlayerSize().getX()/2.0f) + width, player.getPosition().getY()));
+		}		
+		// unten
+		if (((player.getPosition().getY()-(player.getPlayerSize().getY()/2.0f)) <= 0)) {
+			player.setPosition(new Vector2f(player.getPosition().getX(), player.getPlayerSize().getY()/2.0f));
+		}		
+		// oben
+		if (((player.getPosition().getY()+(player.getPlayerSize().getY()/2.0f)) >= height)) {
+			player.setPosition(new Vector2f(player.getPosition().getX(), height - (player.getPlayerSize().getY()/2.0f)));
+		}			
+		// Kollision
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext()) {
 			Entity e = it.next();

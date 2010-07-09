@@ -90,6 +90,10 @@ public class Player extends Entity implements ICollidable {
 		walk.setSize(playerSize);
 		this.walk = walk;
 	}
+	
+	public Vector2f getPlayerSize() {
+		return playerSize;
+	}
 
 	@Override
 	public boolean collidesWith(ICollidable c) {
