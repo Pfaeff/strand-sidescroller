@@ -30,7 +30,9 @@ public class TextureManager {
 			background = TextureIO.newTexture(new File("images/background/strand.png"), false);
 			background.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			background.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);		
-		
+			background.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
+			
+			
 			sunmilk_tex = TextureIO.newTexture(new File("images/static/sunmilk.png"), false);
 			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
@@ -41,7 +43,8 @@ public class TextureManager {
 
 			fatwoman_tex[1] = TextureIO.newTexture(new File("images/animations/frau2.png"), false);
 			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);			
+			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			
 		} catch (GLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
