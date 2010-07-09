@@ -84,7 +84,7 @@ public class Animation {
 	
 	public void render(GL gl, boolean flipHorizontally, boolean flipVertically) {
 		gl.glEnable(GL.GL_ALPHA_TEST);
-		gl.glAlphaFunc(GL.GL_GREATER, 0.01f);			
+		gl.glAlphaFunc(GL.GL_GREATER, 0.1f);			
 		gl.glPushMatrix();
 		{
 			if (texture != null) {
