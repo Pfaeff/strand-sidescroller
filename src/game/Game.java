@@ -12,6 +12,7 @@ import render.Background;
 import render.Renderer;
 import render.TextureManager;
 
+import math.Rectangle;
 import math.Vector2f;
 import engine.GameTimer;
 
@@ -50,12 +51,12 @@ public class Game implements KeyListener {
 		Random r = new Random();
 		for (int i=1; i<=10; i++) {
 			SunMilk m = new SunMilk();
-			m.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(400)));
+			m.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(300)));
 			entities.add(m);			
 		}
 		for (int i=1; i<=5; i++) {
 			FatWoman fw = new FatWoman();
-			fw.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(400)));
+			fw.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(300)));
 			entities.add(fw);			
 		}
 				
@@ -106,7 +107,8 @@ public class Game implements KeyListener {
 			// Fat Women
 			if (e instanceof FatWoman) {
 				if (player.collidesWith((ICollidable)e)) {
-					// TODO Spieler am weiterlaufen hindern
+					Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
+					player.position = Vector2f.add(player.position, mtd);
 				}
 			}
 		}
