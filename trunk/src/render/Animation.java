@@ -15,6 +15,7 @@ public class Animation {
 	private int posY;
 	private boolean loop;
 	private float time;
+	private int z;
 	
 	private Vector2f position;
 	private Vector2f size;
@@ -25,6 +26,7 @@ public class Animation {
 		this.numX = 1;
 		this.numY = 1;
 		this.loop = false;
+		this.z = 0;
 		
 		position = new Vector2f();
 		size = new Vector2f();
@@ -32,7 +34,7 @@ public class Animation {
 		reset();		
 	}
 	
-	public Animation(Texture texture, int duration, int numX, int numY, boolean loop) {
+	public Animation(Texture texture, int duration, int numX, int numY, boolean loop, int z) {
 		this.texture = texture;
 		this.duration = duration;
 		if (numX < 1) {
@@ -44,6 +46,7 @@ public class Animation {
 		this.numX = numX;
 		this.numY = numY;
 		this.loop = loop;
+		this.z = z;
 		
 		position = new Vector2f();
 		size = new Vector2f();
@@ -103,14 +106,14 @@ public class Animation {
 			}			
 			
 			gl.glTranslatef(position.getX(), position.getY(), 0);
-			gl.glScalef(0.5f, 0.5f, 1f);
+			gl.glScalef(0.5f, 0.5f, 1);
 			gl.glScalef(size.getX(), size.getY(), 1);
 			gl.glBegin(GL.GL_QUADS);
 			{
-				gl.glTexCoord2d(lX, rY); gl.glVertex3f(-1, -1, 0);
-				gl.glTexCoord2d(rX, rY); gl.glVertex3f( 1, -1, 0);
-				gl.glTexCoord2d(rX, lY); gl.glVertex3f( 1,  1, 0);
-				gl.glTexCoord2d(lX, lY); gl.glVertex3f(-1,  1, 0);			
+				gl.glTexCoord2d(lX, rY); gl.glVertex3f(-1, -1, z);
+				gl.glTexCoord2d(rX, rY); gl.glVertex3f( 1, -1, z);
+				gl.glTexCoord2d(rX, lY); gl.glVertex3f( 1,  1, z);
+				gl.glTexCoord2d(lX, lY); gl.glVertex3f(-1,  1, z);			
 			}
 			gl.glEnd();
 		}

@@ -4,16 +4,10 @@ import engine.GameTimer;
 import game.Game;
 
 import java.awt.Frame;
-import java.io.File;
-import java.io.IOException;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
-import javax.media.opengl.GLException;
-
-import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureIO;
 
 /**
  * Kümmert sich um das Rendern der Szene
