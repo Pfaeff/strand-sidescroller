@@ -19,11 +19,11 @@ public class TextureManager {
 
 	static public void loadTextures() {
 		try {
-			horst_stand_tex = TextureIO.newTexture(new File("images/animations/horst_stand.jpg"), false);
+			horst_stand_tex = TextureIO.newTexture(new File("images/animations/horst_stand.png"), false);
 			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 		
-			horst_walk_tex = TextureIO.newTexture(new File("images/animations/horst_walk.jpg"), false);
+			horst_walk_tex = TextureIO.newTexture(new File("images/animations/horst_walk.png"), false);
 			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
 		
