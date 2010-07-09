@@ -24,9 +24,9 @@ public class Player extends Entity implements ICollidable {
 	
 	public Player() {
 		direction = new Vector2f();
-		stand = new Animation(TextureManager.horst_stand_tex, 5000, 4, 1, true);	
+		stand = new Animation(TextureManager.horst_stand_tex, 5000, 4, 1, true, 0);	
 		stand.setSize(playerSize);
-		walk = new Animation(TextureManager.horst_walk_tex, 1000, 4, 1, true);	
+		walk = new Animation(TextureManager.horst_walk_tex, 1000, 4, 1, true, 0);	
 		walk.setSize(playerSize);
 		moves = false;
 		movesLeft = false;

@@ -48,6 +48,12 @@ public class Game implements KeyListener {
 			m.setPosition(new Vector2f(r.nextInt(1000), r.nextInt(500)));
 			entities.add(m);			
 		}
+		for (int i=1; i<=3; i++) {
+			FatWoman fw = new FatWoman();
+			fw.setPosition(new Vector2f(r.nextInt(1000), r.nextInt(500)));
+			entities.add(fw);			
+		}
+				
 	}
 	
 	private Vector2f getMovementDirectionVector() {
@@ -82,11 +88,19 @@ public class Game implements KeyListener {
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext()) {
 			Entity e = it.next();
+			e.update(dt);
+			// Milk
 			if (e instanceof SunMilk) {
 				if (player.collidesWith((ICollidable)e)) {
 					it.remove();
 					collectedMilks++;
 					System.out.println("Eingesammelte Sonnencreme: " + collectedMilks);
+				}
+			}
+			// Fat Women
+			if (e instanceof FatWoman) {
+				if (player.collidesWith((ICollidable)e)) {
+					// TODO Spieler am weiterlaufen hindern
 				}
 			}
 		}
