@@ -44,18 +44,18 @@ public class Game implements KeyListener {
 		player.setPosition(new Vector2f(100, 100));
 		this.gameTimer = gameTimer;
 		
-		bg = new Background(TextureManager.background, width, height);
+		bg = new Background(TextureManager.background, camera, width, height);
 		
 		// Test
 		Random r = new Random();
 		for (int i=1; i<=10; i++) {
 			SunMilk m = new SunMilk();
-			m.setPosition(new Vector2f(r.nextInt(1000), r.nextInt(500)));
+			m.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(400)));
 			entities.add(m);			
 		}
-		for (int i=1; i<=3; i++) {
+		for (int i=1; i<=5; i++) {
 			FatWoman fw = new FatWoman();
-			fw.setPosition(new Vector2f(r.nextInt(1000), r.nextInt(500)));
+			fw.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(400)));
 			entities.add(fw);			
 		}
 				
@@ -89,6 +89,7 @@ public class Game implements KeyListener {
 		player.setDirection(direction);
 		player.update(dt);
 		camera.update(dt);
+		bg.update(dt);
 		
 		Iterator<Entity> it = entities.iterator();
 		while (it.hasNext()) {
@@ -113,7 +114,7 @@ public class Game implements KeyListener {
 	
 	public void render(Renderer renderer, GL gl, int width, int height){
 		camera.apply(gl);
-		bg.render(gl);
+		bg.draw(renderer, gl);
 		player.draw(renderer, gl);
 		for (Entity e : entities) {
 			e.draw(renderer, gl);
