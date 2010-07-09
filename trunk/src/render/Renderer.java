@@ -21,8 +21,6 @@ public class Renderer implements GLEventListener {
 	final private int width;
 	final private int height;
 	
-	Background bg;
-	
 	/**
 	 * Konstruktor
 	 * 
@@ -55,12 +53,10 @@ public class Renderer implements GLEventListener {
 		 * Texturen laden
 		 */
 		TextureManager.loadTextures();
-		// Hintergrund erzeugen (das muss noch irgendwo anders rein)
-		bg = new Background(TextureManager.background, width, height);		
 		
 		// Game erzeugen (muss leider erfolgen, nachdem ein OpenGL-Thread steht)
 		GameTimer gameTimer = new GameTimer();
-		game = new Game(gameTimer);
+		game = new Game(gameTimer, width, height);
 		
 		// Tastensteuerung
 		frame.addKeyListener(game);				
@@ -92,7 +88,6 @@ public class Renderer implements GLEventListener {
 		gl.glMatrixMode(GL.GL_MODELVIEW);
 		gl.glLoadIdentity();		
 		
-		bg.render(gl);
 		game.render(this, gl, width, height);
 		
 		try {
