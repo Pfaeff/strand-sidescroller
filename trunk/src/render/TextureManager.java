@@ -31,7 +31,7 @@ public class TextureManager {
 			background.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			background.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);		
 		
-			sunmilk_tex = TextureIO.newTexture(new File("images/static/sunmilk.jpg"), false);
+			sunmilk_tex = TextureIO.newTexture(new File("images/static/sunmilk.png"), false);
 			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
 			

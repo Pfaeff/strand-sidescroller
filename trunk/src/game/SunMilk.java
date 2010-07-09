@@ -14,6 +14,8 @@ public class SunMilk extends Entity implements ICollidable {
 
 	@Override
 	public void draw(Renderer renderer, GL gl) {
+		gl.glEnable(GL.GL_ALPHA_TEST);
+		gl.glAlphaFunc(GL.GL_GREATER, 0.1f);		
 		gl.glPushMatrix();
 		{
 			if (TextureManager.sunmilk_tex != null) {
@@ -31,7 +33,8 @@ public class SunMilk extends Entity implements ICollidable {
 			}
 			gl.glEnd();
 		}
-		gl.glPopMatrix();	
+		gl.glPopMatrix();
+		gl.glDisable(GL.GL_ALPHA_TEST);		
 	}
 
 	@Override
