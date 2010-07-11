@@ -10,6 +10,7 @@ import javax.media.opengl.GLCapabilities;
 import com.sun.opengl.util.Animator;
 
 import render.Renderer;
+import sound.AudioManager;
 
 /**
  * Initialisiert notwendige Teilsysteme und stellt das ausführbare Programm dar
@@ -24,6 +25,8 @@ public class Horst {
 	final private static int height = 500; 
 	
 	public Horst() {
+		// Sounds laden
+		AudioManager.loadSounds();
 		// Fenster initialisieren
 		initFrame();
 		// OpenGL initialisieren
