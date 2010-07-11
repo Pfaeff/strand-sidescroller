@@ -23,6 +23,8 @@ public class FatWoman extends Obstacle {
 		womanType = r.nextInt(2);
 		verticalFlip = r.nextBoolean();
 		horizontalFlip = r.nextBoolean();
+		width = fatWomanSize.getX();
+		height = fatWomanSize.getY();
 		idle = new Animation(TextureManager.fatwoman_tex[womanType], 1500, 2, 1, true, -1);
 		idle.setSize(fatWomanSize);
 	}

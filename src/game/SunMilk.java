@@ -9,8 +9,11 @@ import render.Renderer;
 import render.TextureManager;
 
 public class SunMilk extends Entity implements ICollidable {	
-	final static private int width = 25;
-	final static private int height = 50;
+
+	public SunMilk() {
+		width = 25;
+		height = 50;
+	}
 
 	@Override
 	public void draw(Renderer renderer, GL gl) {
