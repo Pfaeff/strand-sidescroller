@@ -16,6 +16,8 @@ public class TextureManager {
 	static public Texture background;
 	static public Texture sunmilk_tex;
 	static public Texture[] fatwoman_tex = new Texture[2];
+	static public Texture life_full_tex;
+	static public Texture life_empty_tex;
 
 	static public void loadTextures() {
 		try {
@@ -43,8 +45,15 @@ public class TextureManager {
 
 			fatwoman_tex[1] = TextureIO.newTexture(new File("images/animations/frau2.png"), false);
 			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
 			
+			life_full_tex = TextureIO.newTexture(new File("images/ui/leiste_voll.png"), false);
+			life_full_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			life_full_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+			
+			life_empty_tex = TextureIO.newTexture(new File("images/ui/leiste_leer.png"), false);
+			life_empty_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			life_empty_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);			
 		} catch (GLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

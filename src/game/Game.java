@@ -23,11 +23,12 @@ import engine.GameTimer;
 public class Game implements KeyListener {
 	private GameTimer gameTimer;
 	
-	private Camera camera; 
-	private Player player;
 	final private int width;
 	final private int height;
-	
+
+	private Camera camera; 
+	private Player player;
+	private LifeGauge life;
 	private Background bg;
 	private ArrayList<Entity> entities;
 	
@@ -49,6 +50,7 @@ public class Game implements KeyListener {
 		this.width = width;
 		this.height = height;
 		
+		life = new LifeGauge();
 		bg = new Background(TextureManager.background, camera, width, height);
 		
 		// Test
@@ -95,6 +97,7 @@ public class Game implements KeyListener {
 		player.update(dt);
 		camera.update(dt);
 		bg.update(dt);
+		life.update(dt);
 		
 		// Kollision (Boundaries)
 		// links
@@ -143,6 +146,7 @@ public class Game implements KeyListener {
 		for (Entity e : entities) {
 			e.draw(renderer, gl);
 		}
+		life.draw(renderer, gl);
 	}
 
 	@Override
