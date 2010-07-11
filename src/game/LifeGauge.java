@@ -83,6 +83,7 @@ public class LifeGauge extends Entity {
 	
 	public void fill() {
 		currentValue += fillAmount;
+		currentValue = Math.min(currentValue, maxValue);
 	}
 
 	public boolean hasDepleted() {
