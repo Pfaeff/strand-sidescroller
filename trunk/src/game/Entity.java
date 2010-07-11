@@ -9,6 +9,8 @@ import math.Vector2f;
 public abstract class Entity {
 	protected Vector2f position = new Vector2f();
 	protected Vector2f velocity = new Vector2f();
+	protected float width;
+	protected float height;
 	
 	public abstract void update(float dt);
 	
@@ -28,5 +30,13 @@ public abstract class Entity {
 
 	public Vector2f getVelocity() {
 		return velocity;
+	}
+	
+	public float getWidth() {
+		return width;
+	}
+	
+	public float getHeight() {
+		return height;
 	}
 }

@@ -137,6 +137,18 @@ public class Game implements KeyListener {
 				}
 			}
 		}
+		// Speicher sparen
+		removeOldEntities();
+	}
+	
+	private void removeOldEntities() {
+		Iterator<Entity> it = entities.iterator();
+		while (it.hasNext()) {
+			Entity e = it.next();
+			if (((e.getPosition().getX()+(e.getWidth()/2.0f)) <= camera.getPosition().getX())) {
+				it.remove();
+			}
+		}
 	}
 	
 	public void render(Renderer renderer, GL gl, int width, int height){
