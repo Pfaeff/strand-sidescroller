@@ -11,6 +11,7 @@ import javax.media.opengl.GL;
 import render.Background;
 import render.Renderer;
 import render.TextureManager;
+import sound.AudioManager;
 
 import math.Rectangle;
 import math.Vector2f;
@@ -127,6 +128,10 @@ public class Game implements KeyListener {
 					it.remove();
 					collectedMilks++;
 					life.fill();
+					// Sound abspielen
+					Random r = new Random();
+					int rs = r.nextInt(2);
+					AudioManager.playSound(AudioManager.milk[rs]);
 				}
 			}
 			// Fat Women
