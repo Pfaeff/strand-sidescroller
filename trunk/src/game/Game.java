@@ -126,6 +126,7 @@ public class Game implements KeyListener {
 				if (player.collidesWith((ICollidable)e)) {
 					it.remove();
 					collectedMilks++;
+					life.fill();
 					System.out.println("Eingesammelte Sonnencreme: " + collectedMilks);
 				}
 			}
