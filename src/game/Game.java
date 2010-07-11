@@ -127,7 +127,6 @@ public class Game implements KeyListener {
 					it.remove();
 					collectedMilks++;
 					life.fill();
-					System.out.println("Eingesammelte Sonnencreme: " + collectedMilks);
 				}
 			}
 			// Fat Women
