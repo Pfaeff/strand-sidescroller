@@ -28,8 +28,8 @@ public class LifeGauge extends Entity {
 
 	@Override
 	public void draw(Renderer renderer, GL gl) {
-		gl.glEnable(GL.GL_ALPHA_TEST);
-		gl.glAlphaFunc(GL.GL_GREATER, 0.1f);		
+		gl.glEnable(GL.GL_BLEND);
+		gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA); 			
 		gl.glPushMatrix();
 		{
 			gl.glLoadIdentity();
@@ -69,8 +69,8 @@ public class LifeGauge extends Entity {
 			
 			gl.glEnable(GL.GL_DEPTH_TEST);
 		}
-		gl.glPopMatrix();
-		gl.glDisable(GL.GL_ALPHA_TEST);		
+		gl.glPopMatrix();	
+		gl.glDisable(GL.GL_BLEND);
 	}
 
 	@Override
