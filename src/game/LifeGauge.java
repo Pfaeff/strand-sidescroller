@@ -13,12 +13,12 @@ public class LifeGauge extends Entity {
 	final static private float maxValue = 1000;
 	final static private float speed = 50;
 	final static private float fillAmount = 100;
-	final static private float width = 100;
-	final static private float height = 25;
+	final static private float width = 160;
+	final static private float height = 40;
 	
 	public LifeGauge() {
 		reset();
-		position = new Vector2f(75, 450);
+		position = new Vector2f(width/2.0f + 25, 500 - (height+25));
 	}
 	
 	public void reset() {
