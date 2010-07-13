@@ -32,7 +32,7 @@ public class Player extends Entity implements ICollidable {
 		stand.setSize(playerSize);
 		walk = new Animation(TextureManager.horst_walk_tex, 1000, 4, 1, true, 0);	
 		walk.setSize(playerSize);
-		death = new Animation(TextureManager.horst_burns_tex, 2000, 8, 2, false, 0);
+		death = new Animation(TextureManager.horst_burns_tex, 2500, 8, 2, false, 0);
 		death.setSize(playerSize);
 		moves = false;
 		movesLeft = false;
