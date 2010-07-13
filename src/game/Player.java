@@ -44,8 +44,8 @@ public class Player extends Entity implements ICollidable {
 		if (dead) {
 			return;
 		}
-		// a = F/m und m=1 ^^ Die beiden wirkenden Kräfte sind die Tasten der Tastatur ;) und die Reibung,
-		// die von der Geschwindigkeit abhängt und in entgegengesetzter Richtung wirkt
+		// a = F/m und m=1 ^^ Die beiden wirkenden Krï¿½fte sind die Tasten der Tastatur ;) und die Reibung,
+		// die von der Geschwindigkeit abhï¿½ngt und in entgegengesetzter Richtung wirkt
 		Vector2f acc = Vector2f.sub(direction.scale(acceleration), velocity.scale(friction)).scale(dt); 
 		velocity = Vector2f.add(velocity, acc);
 		float vL = velocity.length();
@@ -127,6 +127,14 @@ public class Player extends Entity implements ICollidable {
 	@Override
 	public Rectangle getRectangle() {
 		return new Rectangle(Vector2f.sub(position, playerSize.scale(0.5f)), Vector2f.add(position, playerSize.scale(0.5f)));
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
+	}
+
+	public boolean isDead() {
+		return dead;
 	}
 
 }
