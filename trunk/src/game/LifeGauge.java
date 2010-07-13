@@ -90,4 +90,8 @@ public class LifeGauge extends Entity {
 		return depleted;
 	}
 	
+	public int percentage() {
+		return Math.round((currentValue / maxValue) * 100.0f);
+	}
+	
 }
