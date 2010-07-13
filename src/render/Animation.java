@@ -122,6 +122,10 @@ public class Animation {
 		gl.glPopMatrix();
 		gl.glDisable(GL.GL_BLEND);
 	}
+	
+	public void setTexture(Texture tex) {
+		texture = tex;
+	}
 
 	public void setDuration(int duration) {
 		this.duration = duration;
