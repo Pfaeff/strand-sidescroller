@@ -72,8 +72,11 @@ public class Animation {
 			}
 		}
 		int dp = (int)Math.floor(((float)time / (float)duration) * (numX * numY));
+		if (dp > (numX * numY) - 1) {
+			dp = numX * numY - 1;
+		}
 		posX = dp % numX;
-		posY = dp % numY;
+		posY = dp / numX;
 		if (posX >= numX) {
 			posX = numX - 1;
 		}

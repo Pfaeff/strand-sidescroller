@@ -18,7 +18,7 @@ import math.Vector2f;
 import engine.GameTimer;
 
 /**
- * Klasse für die Spiel- und Interaktions-Logik
+ * Klasse fï¿½r die Spiel- und Interaktions-Logik
  * @author Kai
  */
 public class Game implements KeyListener {
@@ -100,48 +100,51 @@ public class Game implements KeyListener {
 		bg.update(dt);
 		life.update(dt);
 		
-		// Kollision (Boundaries)
-		// links
-		if (((player.getPosition().getX()-(player.getPlayerSize().getX()/2.0f)) <= camera.getPosition().getX())) {
-			player.setPosition(new Vector2f(camera.getPosition().getX() + (player.getPlayerSize().getX()/2.0f), player.getPosition().getY()));
-		}
-		// rechts
-		if (((player.getPosition().getX()+(player.getPlayerSize().getX()/2.0f)) >= (camera.getPosition().getX()+width))) {
-			player.setPosition(new Vector2f(camera.getPosition().getX() - (player.getPlayerSize().getX()/2.0f) + width, player.getPosition().getY()));
-		}		
-		// unten
-		if (((player.getPosition().getY()-(player.getPlayerSize().getY()/2.0f)) <= 0)) {
-			player.setPosition(new Vector2f(player.getPosition().getX(), player.getPlayerSize().getY()/2.0f));
-		}		
-		// oben
-		if (((player.getPosition().getY()+(player.getPlayerSize().getY()/2.0f)) >= (height-50))) {
-			player.setPosition(new Vector2f(player.getPosition().getX(), (height-50) - (player.getPlayerSize().getY()/2.0f)));
-		}			
-		// Kollision
-		Iterator<Entity> it = entities.iterator();
-		while (it.hasNext()) {
-			Entity e = it.next();
-			e.update(dt);
-			// Milk
-			if (e instanceof SunMilk) {
-				if (player.collidesWith((ICollidable)e)) {
-					it.remove();
-					collectedMilks++;
-					life.fill();
-					// Sound abspielen
-					Random r = new Random();
-					int rs = r.nextInt(2);
-					AudioManager.playSound(AudioManager.milk[rs]);
-				}
+		if (!player.isDead()) {
+			// Kollision (Boundaries)
+			// links
+			if (((player.getPosition().getX()-(player.getPlayerSize().getX()/2.0f)) <= camera.getPosition().getX())) {
+				player.setPosition(new Vector2f(camera.getPosition().getX() + (player.getPlayerSize().getX()/2.0f), player.getPosition().getY()));
 			}
-			// Fat Women
-			if (e instanceof FatWoman) {
-				if (player.collidesWith((ICollidable)e)) {
-					Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
-					player.position = Vector2f.add(player.position, mtd);
+			// rechts
+			if (((player.getPosition().getX()+(player.getPlayerSize().getX()/2.0f)) >= (camera.getPosition().getX()+width))) {
+				player.setPosition(new Vector2f(camera.getPosition().getX() - (player.getPlayerSize().getX()/2.0f) + width, player.getPosition().getY()));
+			}		
+			// unten
+			if (((player.getPosition().getY()-(player.getPlayerSize().getY()/2.0f)) <= 0)) {
+				player.setPosition(new Vector2f(player.getPosition().getX(), player.getPlayerSize().getY()/2.0f));
+			}		
+			// oben
+			if (((player.getPosition().getY()+(player.getPlayerSize().getY()/2.0f)) >= (height-50))) {
+				player.setPosition(new Vector2f(player.getPosition().getX(), (height-50) - (player.getPlayerSize().getY()/2.0f)));
+			}			
+			// Kollision
+			Iterator<Entity> it = entities.iterator();
+			while (it.hasNext()) {
+				Entity e = it.next();
+				e.update(dt);
+				// Milk
+				if (e instanceof SunMilk) {
+					if (player.collidesWith((ICollidable)e)) {
+						it.remove();
+						collectedMilks++;
+						life.fill();
+						// Sound abspielen
+						Random r = new Random();
+						int rs = r.nextInt(2);
+						AudioManager.playSound(AudioManager.milk[rs]);
+					}
 				}
-			}
+				// Fat Women
+				if (e instanceof FatWoman) {
+					if (player.collidesWith((ICollidable)e)) {
+						Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
+						player.position = Vector2f.add(player.position, mtd);
+					}
+				}
+			}			
 		}
+		
 		// Speicher sparen
 		removeOldEntities();
 	}
