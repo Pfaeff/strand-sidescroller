@@ -16,13 +16,15 @@ public class Player extends Entity implements ICollidable {
 	private boolean moves;
 	private boolean movesLeft;
 	private float anim_dt;
+	private LifeGauge life;
 	final static private float velocityLimit = 300;
 	final static private float velocityMinimum = 20;
 	final static private float acceleration = 500000;
 	final static private float friction = 4f;
 	final static private Vector2f playerSize = new Vector2f(50, 100);
 	
-	public Player() {
+	public Player(LifeGauge life) {
+		this.life = life;
 		direction = new Vector2f();
 		stand = new Animation(TextureManager.horst_stand_tex, 5000, 4, 1, true, 0);	
 		stand.setSize(playerSize);
@@ -63,6 +65,13 @@ public class Player extends Entity implements ICollidable {
 
 	@Override
 	public void draw(Renderer renderer, GL gl) {
+		if (life.percentage() <= 25) {
+			stand.setTexture(TextureManager.horst_stand_sweat_tex);
+			walk.setTexture(TextureManager.horst_walk_sweat_tex);
+		} else {
+			stand.setTexture(TextureManager.horst_stand_tex);
+			walk.setTexture(TextureManager.horst_walk_tex);			
+		}
 		stand.setPosition(position);
 		walk.setPosition(position);
 		if (!moves) {

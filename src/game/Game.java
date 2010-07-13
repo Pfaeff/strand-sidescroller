@@ -44,26 +44,26 @@ public class Game implements KeyListener {
 	
 	public Game(GameTimer gameTimer, int width, int height) {
 		camera = new Camera(new Vector2f(0, 0), new Vector2f(80, 0));
-		player = new Player();
 		entities = new ArrayList<Entity>();
-		player.setPosition(new Vector2f(width/2.0f, height/2.0f));
 		this.gameTimer = gameTimer;
 		this.width = width;
 		this.height = height;
 		
 		life = new LifeGauge();
+		player = new Player(life);
+		player.setPosition(new Vector2f(width/2.0f, height/2.0f));
 		bg = new Background(TextureManager.background, camera, width, height);
 		
 		// Test
 		Random r = new Random();
-		for (int i=1; i<=10; i++) {
+		for (int i=1; i<=12; i++) {
 			SunMilk m = new SunMilk();
-			m.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(300)));
+			m.setPosition(new Vector2f(r.nextInt(6000), r.nextInt(300)));
 			entities.add(m);			
 		}
-		for (int i=1; i<=5; i++) {
+		for (int i=1; i<=8; i++) {
 			FatWoman fw = new FatWoman();
-			fw.setPosition(new Vector2f(r.nextInt(2000), r.nextInt(300)));
+			fw.setPosition(new Vector2f(r.nextInt(6000), r.nextInt(300)));
 			entities.add(fw);			
 		}
 				
