@@ -13,8 +13,10 @@ public class Player extends Entity implements ICollidable {
 	private Vector2f direction;
 	private Animation stand;
 	private Animation walk;
+	private Animation death;
 	private boolean moves;
 	private boolean movesLeft;
+	private boolean dead;
 	private float anim_dt;
 	private LifeGauge life;
 	final static private float velocityLimit = 300;
@@ -30,12 +32,18 @@ public class Player extends Entity implements ICollidable {
 		stand.setSize(playerSize);
 		walk = new Animation(TextureManager.horst_walk_tex, 1000, 4, 1, true, 0);	
 		walk.setSize(playerSize);
+		death = new Animation(TextureManager.horst_burns_tex, 2000, 8, 2, false, 0);
+		death.setSize(playerSize);
 		moves = false;
 		movesLeft = false;
+		dead = false;
 	}
 
 	@Override
 	public void update(float dt) {
+		if (dead) {
+			return;
+		}
 		// a = F/m und m=1 ^^ Die beiden wirkenden Kräfte sind die Tasten der Tastatur ;) und die Reibung,
 		// die von der Geschwindigkeit abhängt und in entgegengesetzter Richtung wirkt
 		Vector2f acc = Vector2f.sub(direction.scale(acceleration), velocity.scale(friction)).scale(dt); 
@@ -74,15 +82,22 @@ public class Player extends Entity implements ICollidable {
 		}
 		stand.setPosition(position);
 		walk.setPosition(position);
-		if (!moves) {
-			// Stehen
-			stand.update(anim_dt);
-			walk.reset();
-			stand.render(gl, movesLeft, false);
+		death.setPosition(position);
+		if (life.percentage() <= 0) {
+			dead = true;
+			death.update(anim_dt);
+			death.render(gl, false, false);
 		} else {
-			// Gehen
-			walk.update(anim_dt);	
-			walk.render(gl, movesLeft, false);
+			if (!moves) {
+				// Stehen
+				stand.update(anim_dt);
+				walk.reset();
+				stand.render(gl, movesLeft, false);
+			} else {
+				// Gehen
+				walk.update(anim_dt);
+				walk.render(gl, movesLeft, false);
+			}
 		}
 	}
 
