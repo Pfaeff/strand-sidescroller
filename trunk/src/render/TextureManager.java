@@ -15,6 +15,7 @@ public class TextureManager {
 	static public Texture horst_walk_tex;	
 	static public Texture horst_stand_sweat_tex;
 	static public Texture horst_walk_sweat_tex;		
+	static public Texture horst_burns_tex;
 	static public Texture background;
 	static public Texture sunmilk_tex;
 	static public Texture[] fatwoman_tex = new Texture[2];
@@ -37,7 +38,11 @@ public class TextureManager {
 		
 			horst_walk_sweat_tex = TextureIO.newTexture(new File("images/animations/horst_walk_schwitz.png"), false);
 			horst_walk_sweat_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_walk_sweat_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);				
+			horst_walk_sweat_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			
+			horst_burns_tex = TextureIO.newTexture(new File("images/animations/horst_brennt.png"), false);
+			horst_burns_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			horst_burns_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
 			
 			background = TextureIO.newTexture(new File("images/background/strand.png"), false);
 			background.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
