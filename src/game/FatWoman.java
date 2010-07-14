@@ -18,7 +18,7 @@ public class FatWoman extends Obstacle {
 	final static private Vector2f fatWomanSize = new Vector2f(60, 120);
 	
 	public FatWoman() {
-		// Zufälliges Design auswählen
+		// Zufï¿½lliges Design auswï¿½hlen
 		Random r = new Random();
 		womanType = r.nextInt(2);
 		verticalFlip = r.nextBoolean();
@@ -43,6 +43,12 @@ public class FatWoman extends Obstacle {
 	@Override
 	public boolean collidesWith(ICollidable c) {
 		return Rectangle.intersect(getRectangle(), c.getRectangle());
+	}
+	
+	public boolean collidesWithEnsure(ICollidable c) {
+		Rectangle rect = getRectangle();
+		Rectangle ensurance = rect.expand(Player.playerSize.scale(1.1f));
+		return Rectangle.intersect(ensurance, c.getRectangle());
 	}
 
 	@Override

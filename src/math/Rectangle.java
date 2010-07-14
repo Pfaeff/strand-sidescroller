@@ -1,7 +1,7 @@
 package math;
 
 /**
- * Repräsentiert ein Rechteck und stellt Methoden für die Kollision bereit
+ * Reprï¿½sentiert ein Rechteck und stellt Methoden fï¿½r die Kollision bereit
  * 
  * @author Kai
  */
@@ -53,5 +53,11 @@ final public class Rectangle {
 			return dir[minIndex];
 		}
 		return new Vector2f();
+	}
+
+	public Rectangle expand(Vector2f size) {
+		Vector2f e0s = Vector2f.sub(e0, size);
+		Vector2f e1s = Vector2f.add(e1, size);
+		return new Rectangle(e0s, e1s);
 	}
 }

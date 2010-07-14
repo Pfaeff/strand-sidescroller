@@ -12,7 +12,7 @@ public class LifeGauge extends Entity {
 	private boolean depleted;
 	final static private float maxValue = 1000;
 	final static private float speed = 25;
-	final static private float fillAmount = 100;
+	final static private float fillAmount = 50;
 	final static private float width = 160;
 	final static private float height = 40;
 	

@@ -45,7 +45,7 @@ public class Game implements KeyListener {
 				
 	
 	public Game(GameTimer gameTimer, int width, int height) {
-		camera = new Camera(new Vector2f(0, 0), new Vector2f(80, 0));
+		camera = new Camera(new Vector2f(0, 0), new Vector2f(180, 0));
 		entities = new ArrayList<Entity>();
 		this.gameTimer = gameTimer;
 		this.width = width;
@@ -159,7 +159,7 @@ public class Game implements KeyListener {
 			final int bruteForceLimit = 20;
 			Random r = new Random();
 			// Sonnenmilch erzeugen
-			for (int i=1; i<=6; i++) {
+			for (int i=1; i<=4; i++) {
 				SunMilk m = new SunMilk();
 				boolean doesCollide;
 				int c = 0;
@@ -186,7 +186,7 @@ public class Game implements KeyListener {
 				num_of_last_generated_entites++;
 			}
 			// Fette Frauen erzeugen
-			for (int i=1; i<=4; i++) {
+			for (int i=1; i<=5; i++) {
 				FatWoman fw = new FatWoman();
 				boolean doesCollide;
 				int c = 0;
@@ -198,7 +198,7 @@ public class Game implements KeyListener {
 					fw.setPosition(new Vector2f(x, y));
 					for (Entity e : entities) {
 						if (e instanceof ICollidable) {
-							if (fw.collidesWith((ICollidable)e)) {
+							if (fw.collidesWithEnsure((ICollidable)e)) {
 								doesCollide = true;
 								break;
 							}
