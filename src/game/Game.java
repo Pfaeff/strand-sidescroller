@@ -97,11 +97,7 @@ public class Game implements KeyListener {
 			camera.update(dt);						
 			// Kollision
 			playerCollision(dt);		
-		} else {
-			if (camera.position.getX() <= player.position.getX()-width/2.0f) {
-				camera.update(dt);
-			}
-		}
+		} 
 		
 		// Speicher sparen
 		removeOldEntities();
