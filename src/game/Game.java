@@ -228,7 +228,7 @@ public class Game implements KeyListener {
 				num_of_last_generated_entites++;
 			}	
 			// flugzeug
-			if (r.nextInt(100) < 30) {
+			if (r.nextInt(100) < 10) {
 				Plane plane = new Plane();
 				plane.setPosition(Vector2f.add(camera.position, new Vector2f(width, 420)));
 				entities.add(plane);
