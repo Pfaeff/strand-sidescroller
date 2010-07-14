@@ -197,8 +197,10 @@ public class Game implements KeyListener {
 				// Zufälliges Hindernis
 				if (r.nextInt(2) == 0) {
 					obstacle = new FatWoman();
-				} else {
+				} else if (r.nextInt(2)==1){
 					obstacle = new Crab();
+				} else {
+					obstacle = new Radio();
 				}
 				boolean doesCollide;
 				int c = 0;
