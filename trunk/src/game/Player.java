@@ -19,18 +19,18 @@ public class Player extends Entity implements ICollidable {
 	private boolean dead;
 	private float anim_dt;
 	private LifeGauge life;
-	final static private float velocityLimit = 300;
+	final static private float velocityLimit = 250;
 	final static private float velocityMinimum = 20;
 	final static private float acceleration = 500000;
 	final static private float friction = 4f;
-	final static private Vector2f playerSize = new Vector2f(50, 100);
+	final static public Vector2f playerSize = new Vector2f(50, 100);
 	
 	public Player(LifeGauge life) {
 		this.life = life;
 		direction = new Vector2f();
 		stand = new Animation(TextureManager.horst_stand_tex, 5000, 4, 1, true, 0);	
 		stand.setSize(playerSize);
-		walk = new Animation(TextureManager.horst_walk_tex, 1000, 4, 1, true, 0);	
+		walk = new Animation(TextureManager.horst_walk_tex, 800, 4, 1, true, 0);	
 		walk.setSize(playerSize);
 		death = new Animation(TextureManager.horst_burns_tex, 2500, 8, 2, false, 0);
 		death.setSize(playerSize);
