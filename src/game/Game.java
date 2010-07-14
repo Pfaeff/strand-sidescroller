@@ -194,10 +194,11 @@ public class Game implements KeyListener {
 			// Hindernisse erzeugen
 			for (int i=1; i<=6; i++) {
 				Obstacle obstacle;
+				int ot = r.nextInt(3);
 				// Zufälliges Hindernis
-				if (r.nextInt(2) == 0) {
+				if (ot == 0) {
 					obstacle = new FatWoman();
-				} else if (r.nextInt(2)==1){
+				} else if (ot == 1){
 					obstacle = new Crab();
 				} else {
 					obstacle = new Radio();
