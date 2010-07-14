@@ -20,6 +20,7 @@ public class TextureManager {
 	static public Texture sunmilk_tex;
 	static public Texture[] fatwoman_tex = new Texture[2];
 	static public Texture crab_tex;
+	static public Texture radio_tex;
 	static public Texture life_full_tex;
 	static public Texture life_empty_tex;
 
@@ -41,7 +42,9 @@ public class TextureManager {
 			fatwoman_tex[0] = loadTexture("images/animations/frau.png");			
 			fatwoman_tex[1] = loadTexture("images/animations/frau2.png");
 			
-			crab_tex = loadTexture("images/animations/crab.png");			
+			crab_tex = loadTexture("images/animations/crab.png");	
+			
+			radio_tex = loadTexture("images/animations/radio.png");
 			
 			life_full_tex = loadTexture("images/ui/leiste_voll.png");
 			life_empty_tex = loadTexture("images/ui/leiste_leer.png");	
