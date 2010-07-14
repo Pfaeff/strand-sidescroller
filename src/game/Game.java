@@ -165,7 +165,7 @@ public class Game implements KeyListener {
 			final int bruteForceLimit = 50;
 			Random r = new Random();
 			// Sonnenmilch erzeugen
-			for (int i=1; i<=5; i++) {
+			for (int i=1; i<=2; i++) {
 				SunMilk m = new SunMilk();
 				boolean doesCollide;
 				int c = 0;
@@ -192,7 +192,7 @@ public class Game implements KeyListener {
 				num_of_last_generated_entites++;
 			}
 			// Hindernisse erzeugen
-			for (int i=1; i<=6; i++) {
+			for (int i=1; i<=7; i++) {
 				Obstacle obstacle;
 				int ot = r.nextInt(3);
 				// Zufälliges Hindernis
@@ -228,9 +228,9 @@ public class Game implements KeyListener {
 				num_of_last_generated_entites++;
 			}	
 			// flugzeug
-			if (r.nextInt(100) < 10) {
+			if (r.nextInt(100) < 20) {
 				Plane plane = new Plane();
-				plane.setPosition(Vector2f.add(camera.position, new Vector2f(width, 420)));
+				plane.setPosition(Vector2f.add(camera.position, new Vector2f(width, 420+plane.width/2.0f)));
 				entities.add(plane);
 			}
 		}
