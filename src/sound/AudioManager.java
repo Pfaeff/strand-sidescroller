@@ -42,4 +42,14 @@ public class AudioManager {
 		clip.start();
 	}
 	
+	static public void playSoundWait(Clip clip) {
+		if (clip == null) {
+			return;
+		}
+		if (!clip.isRunning()) {
+			clip.setFramePosition(0);		
+		}
+		clip.start();		
+	}
+	
 }
