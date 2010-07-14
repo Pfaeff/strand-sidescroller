@@ -19,7 +19,8 @@ public class Player extends Entity implements ICollidable {
 	private boolean dead;
 	private float anim_dt;
 	private LifeGauge life;
-	final static private float velocityLimit = 250;
+	final static private float velocityLimit = 275;
+	final static private float velocityLimitV = 150;
 	final static private float velocityMinimum = 20;
 	final static private float acceleration = 500000;
 	final static private float friction = 4f;
@@ -51,6 +52,10 @@ public class Player extends Entity implements ICollidable {
 		float vL = velocity.length();
 		if (vL > velocityLimit) {
 			velocity = velocity.normalize().scale(velocityLimit);
+		}
+		// Vertikale Geschwindigkeitschranke
+		if (Math.abs(velocity.getY()) > velocityLimitV) {
+			velocity = new Vector2f(velocity.getX(), (velocity.getY()/Math.abs(velocity.getY())) * velocityLimitV);
 		}
 		if ((direction.lengthSquare() == 0) && (vL < velocityMinimum)) {
 			moves = false;			
