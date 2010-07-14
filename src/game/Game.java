@@ -160,7 +160,7 @@ public class Game implements KeyListener {
 	}
 	
 	private void generateLevel() {
-		if (entities.size() <= num_of_last_generated_entites / 2) {
+		if (entities.size() <= num_of_last_generated_entites / 2) {	
 			num_of_last_generated_entites = 0;
 			final int bruteForceLimit = 50;
 			Random r = new Random();
@@ -226,7 +226,13 @@ public class Game implements KeyListener {
 				} while (doesCollide);
 				entities.add(obstacle);	
 				num_of_last_generated_entites++;
-			}				
+			}	
+			// flugzeug
+			if (r.nextInt(100) < 30) {
+				Plane plane = new Plane();
+				plane.setPosition(Vector2f.add(camera.position, new Vector2f(width, 420)));
+				entities.add(plane);
+			}
 		}
 	}
 	
