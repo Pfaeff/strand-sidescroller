@@ -33,6 +33,8 @@ public class Game implements KeyListener {
 	private Background bg;
 	private ArrayList<Entity> entities;
 	
+	private int num_of_last_generated_entites = 0;
+	
 	private boolean left = false;
 	private boolean right = false;
 	private boolean up = false;
@@ -53,20 +55,6 @@ public class Game implements KeyListener {
 		player = new Player(life);
 		player.setPosition(new Vector2f(width/2.0f, height/2.0f));
 		bg = new Background(TextureManager.background, camera, width, height);
-		
-		// Test
-		Random r = new Random();
-		for (int i=1; i<=12; i++) {
-			SunMilk m = new SunMilk();
-			m.setPosition(new Vector2f(r.nextInt(6000), r.nextInt(300)));
-			entities.add(m);			
-		}
-		for (int i=1; i<=8; i++) {
-			FatWoman fw = new FatWoman();
-			fw.setPosition(new Vector2f(r.nextInt(6000), r.nextInt(300)));
-			entities.add(fw);			
-		}
-				
 	}
 	
 	private Vector2f getMovementDirectionVector() {
@@ -100,53 +88,59 @@ public class Game implements KeyListener {
 		bg.update(dt);
 		life.update(dt);
 		
-		if (!player.isDead()) {
-			// Kollision (Boundaries)
-			// links
-			if (((player.getPosition().getX()-(player.getPlayerSize().getX()/2.0f)) <= camera.getPosition().getX())) {
-				player.setPosition(new Vector2f(camera.getPosition().getX() + (player.getPlayerSize().getX()/2.0f), player.getPosition().getY()));
-			}
-			// rechts
-			if (((player.getPosition().getX()+(player.getPlayerSize().getX()/2.0f)) >= (camera.getPosition().getX()+width))) {
-				player.setPosition(new Vector2f(camera.getPosition().getX() - (player.getPlayerSize().getX()/2.0f) + width, player.getPosition().getY()));
-			}		
-			// unten
-			if (((player.getPosition().getY()-(player.getPlayerSize().getY()/2.0f)) <= 0)) {
-				player.setPosition(new Vector2f(player.getPosition().getX(), player.getPlayerSize().getY()/2.0f));
-			}		
-			// oben
-			if (((player.getPosition().getY()+(player.getPlayerSize().getY()/2.0f)) >= (height-50))) {
-				player.setPosition(new Vector2f(player.getPosition().getX(), (height-50) - (player.getPlayerSize().getY()/2.0f)));
-			}			
+		if (!player.isDead()) {		
 			// Kollision
-			Iterator<Entity> it = entities.iterator();
-			while (it.hasNext()) {
-				Entity e = it.next();
-				e.update(dt);
-				// Milk
-				if (e instanceof SunMilk) {
-					if (player.collidesWith((ICollidable)e)) {
-						it.remove();
-						collectedMilks++;
-						life.fill();
-						// Sound abspielen
-						Random r = new Random();
-						int rs = r.nextInt(2);
-						AudioManager.playSound(AudioManager.milk[rs]);
-					}
-				}
-				// Fat Women
-				if (e instanceof FatWoman) {
-					if (player.collidesWith((ICollidable)e)) {
-						Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
-						player.position = Vector2f.add(player.position, mtd);
-					}
-				}
-			}			
+			playerCollision(dt);
 		}
 		
 		// Speicher sparen
 		removeOldEntities();
+		
+		// Level weiter-erzeugen
+		generateLevel();
+	}
+	
+	private void playerCollision(float dt) {
+		// links
+		if (((player.getPosition().getX()-(player.getPlayerSize().getX()/2.0f)) <= camera.getPosition().getX())) {
+			player.setPosition(new Vector2f(camera.getPosition().getX() + (player.getPlayerSize().getX()/2.0f), player.getPosition().getY()));
+		}
+		// rechts
+		if (((player.getPosition().getX()+(player.getPlayerSize().getX()/2.0f)) >= (camera.getPosition().getX()+width))) {
+			player.setPosition(new Vector2f(camera.getPosition().getX() - (player.getPlayerSize().getX()/2.0f) + width, player.getPosition().getY()));
+		}		
+		// unten
+		if (((player.getPosition().getY()-(player.getPlayerSize().getY()/2.0f)) <= 0)) {
+			player.setPosition(new Vector2f(player.getPosition().getX(), player.getPlayerSize().getY()/2.0f));
+		}		
+		// oben
+		if (((player.getPosition().getY()+(player.getPlayerSize().getY()/2.0f)) >= (height-50))) {
+			player.setPosition(new Vector2f(player.getPosition().getX(), (height-50) - (player.getPlayerSize().getY()/2.0f)));
+		}			
+		Iterator<Entity> it = entities.iterator();
+		while (it.hasNext()) {
+			Entity e = it.next();
+			e.update(dt);
+			// Milk
+			if (e instanceof SunMilk) {
+				if (player.collidesWith((ICollidable)e)) {
+					it.remove();
+					collectedMilks++;
+					life.fill();
+					// Sound abspielen
+					Random r = new Random();
+					int rs = r.nextInt(2);
+					AudioManager.playSound(AudioManager.milk[rs]);
+				}
+			}
+			// Fat Women
+			if (e instanceof FatWoman) {
+				if (player.collidesWith((ICollidable)e)) {
+					Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
+					player.position = Vector2f.add(player.position, mtd);
+				}
+			}
+		}			
 	}
 	
 	private void removeOldEntities() {
@@ -156,6 +150,68 @@ public class Game implements KeyListener {
 			if (((e.getPosition().getX()+(e.getWidth()/2.0f)) <= camera.getPosition().getX())) {
 				it.remove();
 			}
+		}
+	}
+	
+	private void generateLevel() {
+		if (entities.size() <= num_of_last_generated_entites / 2) {
+			num_of_last_generated_entites = 0;
+			final int bruteForceLimit = 20;
+			Random r = new Random();
+			// Sonnenmilch erzeugen
+			for (int i=1; i<=6; i++) {
+				SunMilk m = new SunMilk();
+				boolean doesCollide;
+				int c = 0;
+				// Kollision mit anderen Objekten verhindern (Brute Force)
+				do {
+					doesCollide = false;
+					float x = r.nextInt(Math.round(1.5f*width)) + camera.position.getX() + width;
+					float y = r.nextInt(height-Math.round(m.height)-120) + m.height;
+					m.setPosition(new Vector2f(x, y));
+					for (Entity e : entities) {
+						if (e instanceof ICollidable) {
+							if (m.collidesWith((ICollidable)e)) {
+								doesCollide = true;
+								break;
+							}
+						}
+					}
+					c++;
+					if (c >= bruteForceLimit) {
+						break;
+					}
+				} while (doesCollide);
+				entities.add(m);		
+				num_of_last_generated_entites++;
+			}
+			// Fette Frauen erzeugen
+			for (int i=1; i<=4; i++) {
+				FatWoman fw = new FatWoman();
+				boolean doesCollide;
+				int c = 0;
+				// Kollision mit anderen Objekten verhindern (Brute Force)
+				do {
+					doesCollide = false;
+					float x = r.nextInt(Math.round(1.5f*width)) + camera.position.getX() + width;
+					float y = r.nextInt(height-Math.round(fw.height)-120) + fw.height;
+					fw.setPosition(new Vector2f(x, y));
+					for (Entity e : entities) {
+						if (e instanceof ICollidable) {
+							if (fw.collidesWith((ICollidable)e)) {
+								doesCollide = true;
+								break;
+							}
+						}
+					}
+					c++;
+					if (c >= bruteForceLimit) {
+						break;
+					}					
+				} while (doesCollide);
+				entities.add(fw);	
+				num_of_last_generated_entites++;
+			}			
 		}
 	}
 	
