@@ -15,7 +15,7 @@ public class Crab extends Obstacle {
 	public Crab() {
 		width = crabSize.getX();
 		height = crabSize.getY();
-		idle = new Animation(TextureManager.crab_tex, 1000, 2, 1, true, -1);
+		idle = new Animation(TextureManager.crab_tex, 1000, 2, 1, true, -3);
 		idle.setSize(crabSize);		
 	}
 	

@@ -242,7 +242,7 @@ public class Game implements KeyListener {
 		player.draw(renderer, gl);
 		for (Entity e : entities) {
 			e.draw(renderer, gl);
-		}
+		}		
 		life.draw(renderer, gl);
 	}
 
