@@ -167,7 +167,7 @@ public class Game implements KeyListener {
 				do {
 					doesCollide = false;
 					float x = r.nextInt(Math.round(1.5f*width)) + camera.position.getX() + width;
-					float y = r.nextInt(height-Math.round(m.height)-120) + m.height;
+					float y = r.nextInt(height-Math.round(m.height)-120) + m.height/2;
 					m.setPosition(new Vector2f(x, y));
 					for (Entity e : entities) {
 						if (e instanceof ICollidable) {
@@ -186,7 +186,7 @@ public class Game implements KeyListener {
 				num_of_last_generated_entites++;
 			}
 			// Fette Frauen erzeugen
-			for (int i=1; i<=5; i++) {
+			for (int i=1; i<=6; i++) {
 				FatWoman fw = new FatWoman();
 				boolean doesCollide;
 				int c = 0;
@@ -194,7 +194,7 @@ public class Game implements KeyListener {
 				do {
 					doesCollide = false;
 					float x = r.nextInt(Math.round(1.5f*width)) + camera.position.getX() + width;
-					float y = r.nextInt(height-Math.round(fw.height)-120) + fw.height;
+					float y = r.nextInt(height-Math.round(fw.height)-120) + fw.height/2;
 					fw.setPosition(new Vector2f(x, y));
 					for (Entity e : entities) {
 						if (e instanceof ICollidable) {
