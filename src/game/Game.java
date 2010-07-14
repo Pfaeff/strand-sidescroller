@@ -35,6 +35,8 @@ public class Game implements KeyListener {
 	
 	private int num_of_last_generated_entites = 0;
 	
+	private double timeMultiplier;
+	
 	private boolean left = false;
 	private boolean right = false;
 	private boolean up = false;
@@ -55,6 +57,7 @@ public class Game implements KeyListener {
 		player = new Player(life);
 		player.setPosition(new Vector2f(width/2.0f, height/2.0f));
 		bg = new Background(TextureManager.background, camera, width, height);
+		timeMultiplier = 1;
 	}
 	
 	private Vector2f getMovementDirectionVector() {
@@ -79,6 +82,8 @@ public class Game implements KeyListener {
 	
 	public void updateGame() {
 		float dt = gameTimer.update();
+		timeMultiplier += dt/100;
+		dt = dt * (float)timeMultiplier;
 		
 		Vector2f direction = getMovementDirectionVector();
 		direction = direction.scale(dt);
@@ -159,7 +164,7 @@ public class Game implements KeyListener {
 			final int bruteForceLimit = 20;
 			Random r = new Random();
 			// Sonnenmilch erzeugen
-			for (int i=1; i<=4; i++) {
+			for (int i=1; i<=5; i++) {
 				SunMilk m = new SunMilk();
 				boolean doesCollide;
 				int c = 0;
