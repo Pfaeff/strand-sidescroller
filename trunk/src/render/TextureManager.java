@@ -19,59 +19,49 @@ public class TextureManager {
 	static public Texture background;
 	static public Texture sunmilk_tex;
 	static public Texture[] fatwoman_tex = new Texture[2];
+	static public Texture crab;
 	static public Texture life_full_tex;
 	static public Texture life_empty_tex;
 
 	static public void loadTextures() {
 		try {
-			horst_stand_tex = TextureIO.newTexture(new File("images/animations/horst_stand.png"), false);
-			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_stand_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-		
-			horst_walk_tex = TextureIO.newTexture(new File("images/animations/horst_walk.png"), false);
-			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_walk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			horst_stand_tex = loadTexture("images/animations/horst_stand.png");
+			horst_walk_tex = loadTexture("images/animations/horst_walk.png");
 
-			horst_stand_sweat_tex = TextureIO.newTexture(new File("images/animations/horst_stand_schwitz.png"), false);
-			horst_stand_sweat_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_stand_sweat_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-		
-			horst_walk_sweat_tex = TextureIO.newTexture(new File("images/animations/horst_walk_schwitz.png"), false);
-			horst_walk_sweat_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_walk_sweat_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			horst_stand_sweat_tex = loadTexture("images/animations/horst_stand_schwitz.png");		
+			horst_walk_sweat_tex = loadTexture("images/animations/horst_walk_schwitz.png");
 			
-			horst_burns_tex = TextureIO.newTexture(new File("images/animations/horst_brennt.png"), false);
-			horst_burns_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			horst_burns_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			horst_burns_tex = loadTexture("images/animations/horst_brennt.png");
 			
-			background = TextureIO.newTexture(new File("images/background/strand.png"), false);
-			background.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			background.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);		
-			background.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);			
+			background = loadTexture("images/background/strand.png");
 			
-			sunmilk_tex = TextureIO.newTexture(new File("images/static/sunmilk.png"), false);
-			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			sunmilk_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);	
+			sunmilk_tex = loadTexture("images/static/sunmilk.png");
 			
-			fatwoman_tex[0] = TextureIO.newTexture(new File("images/animations/frau.png"), false);
-			fatwoman_tex[0].setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			fatwoman_tex[0].setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-
-			fatwoman_tex[1] = TextureIO.newTexture(new File("images/animations/frau2.png"), false);
-			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			fatwoman_tex[1].setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+			fatwoman_tex[0] = loadTexture("images/animations/frau.png");			
+			fatwoman_tex[1] = loadTexture("images/animations/frau2.png");
 			
-			life_full_tex = TextureIO.newTexture(new File("images/ui/leiste_voll.png"), false);
-			life_full_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			life_full_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+			crab = loadTexture("images/animations/crab.png");			
 			
-			life_empty_tex = TextureIO.newTexture(new File("images/ui/leiste_leer.png"), false);
-			life_empty_tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
-			life_empty_tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);			
+			life_full_tex = loadTexture("images/ui/leiste_voll.png");
+			life_empty_tex = loadTexture("images/ui/leiste_leer.png");	
+		} catch (GLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	static private Texture loadTexture(String filename) {
+		Texture tex;
+		try {
+			tex = TextureIO.newTexture(new File(filename), false);
+			tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
+			tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
+			;
+			return tex;
 		} catch (GLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }
