@@ -29,10 +29,10 @@ public class SunMilk extends Entity implements ICollidable {
 			gl.glScalef(width, height, 1);
 			gl.glBegin(GL.GL_QUADS);
 			{
-				gl.glTexCoord2d(0, 1); gl.glVertex3f(-1, -1, -1);
-				gl.glTexCoord2d(1, 1); gl.glVertex3f( 1, -1, -1);
-				gl.glTexCoord2d(1, 0); gl.glVertex3f( 1,  1, -1);
-				gl.glTexCoord2d(0, 0); gl.glVertex3f(-1,  1, -1);			
+				gl.glTexCoord2d(0, 1); gl.glVertex3f(-1, -1, -3);
+				gl.glTexCoord2d(1, 1); gl.glVertex3f( 1, -1, -3);
+				gl.glTexCoord2d(1, 0); gl.glVertex3f( 1,  1, -3);
+				gl.glTexCoord2d(0, 0); gl.glVertex3f(-1,  1, -3);			
 			}
 			gl.glEnd();
 		}

@@ -15,7 +15,7 @@ public class Radio extends Obstacle {
 	public Radio() {
 		width = radioSize.getX();
 		height = radioSize.getY();
-		idle = new Animation(TextureManager.radio_tex, 1000, 4, 1, true, -1);
+		idle = new Animation(TextureManager.radio_tex, 1000, 4, 1, true, -3);
 		idle.setSize(radioSize);		
 	}
 	

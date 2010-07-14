@@ -28,11 +28,11 @@ public class Player extends Entity implements ICollidable {
 	public Player(LifeGauge life) {
 		this.life = life;
 		direction = new Vector2f();
-		stand = new Animation(TextureManager.horst_stand_tex, 5000, 4, 1, true, 0);	
+		stand = new Animation(TextureManager.horst_stand_tex, 5000, 4, 1, true, -2);	
 		stand.setSize(playerSize);
-		walk = new Animation(TextureManager.horst_walk_tex, 800, 4, 1, true, 0);	
+		walk = new Animation(TextureManager.horst_walk_tex, 800, 4, 1, true, -2);	
 		walk.setSize(playerSize);
-		death = new Animation(TextureManager.horst_burns_tex, 2500, 8, 2, false, 0);
+		death = new Animation(TextureManager.horst_burns_tex, 2500, 8, 2, false, -2);
 		death.setSize(playerSize);
 		moves = false;
 		movesLeft = false;
