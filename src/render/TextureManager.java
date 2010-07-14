@@ -19,7 +19,7 @@ public class TextureManager {
 	static public Texture background;
 	static public Texture sunmilk_tex;
 	static public Texture[] fatwoman_tex = new Texture[2];
-	static public Texture crab;
+	static public Texture crab_tex;
 	static public Texture life_full_tex;
 	static public Texture life_empty_tex;
 
@@ -34,13 +34,14 @@ public class TextureManager {
 			horst_burns_tex = loadTexture("images/animations/horst_brennt.png");
 			
 			background = loadTexture("images/background/strand.png");
+			background.setTexParameteri(GL.GL_TEXTURE_WRAP_S, GL.GL_REPEAT);
 			
 			sunmilk_tex = loadTexture("images/static/sunmilk.png");
 			
 			fatwoman_tex[0] = loadTexture("images/animations/frau.png");			
 			fatwoman_tex[1] = loadTexture("images/animations/frau2.png");
 			
-			crab = loadTexture("images/animations/crab.png");			
+			crab_tex = loadTexture("images/animations/crab.png");			
 			
 			life_full_tex = loadTexture("images/ui/leiste_voll.png");
 			life_empty_tex = loadTexture("images/ui/leiste_leer.png");	
@@ -55,7 +56,6 @@ public class TextureManager {
 			tex = TextureIO.newTexture(new File(filename), false);
 			tex.setTexParameteri(GL.GL_TEXTURE_MAG_FILTER, GL.GL_LINEAR);
 			tex.setTexParameteri(GL.GL_TEXTURE_MIN_FILTER, GL.GL_LINEAR);
-			;
 			return tex;
 		} catch (GLException e) {
 			e.printStackTrace();

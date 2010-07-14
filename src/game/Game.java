@@ -89,13 +89,18 @@ public class Game implements KeyListener {
 		direction = direction.scale(dt);
 		player.setDirection(direction);
 		player.update(dt);
-		camera.update(dt);
 		bg.update(dt);
 		life.update(dt);
 		
-		if (!player.isDead()) {		
+		if (!player.isDead()) {
+			// Kamera
+			camera.update(dt);						
 			// Kollision
-			playerCollision(dt);
+			playerCollision(dt);		
+		} else {
+			if (camera.position.getX() <= player.position.getX()-width/2.0f) {
+				camera.update(dt);
+			}
 		}
 		
 		// Speicher sparen
@@ -139,7 +144,7 @@ public class Game implements KeyListener {
 				}
 			}
 			// Fat Women
-			if (e instanceof FatWoman) {
+			if (e instanceof Obstacle) {
 				if (player.collidesWith((ICollidable)e)) {
 					Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
 					player.position = Vector2f.add(player.position, mtd);
@@ -161,7 +166,7 @@ public class Game implements KeyListener {
 	private void generateLevel() {
 		if (entities.size() <= num_of_last_generated_entites / 2) {
 			num_of_last_generated_entites = 0;
-			final int bruteForceLimit = 20;
+			final int bruteForceLimit = 50;
 			Random r = new Random();
 			// Sonnenmilch erzeugen
 			for (int i=1; i<=5; i++) {
@@ -190,20 +195,26 @@ public class Game implements KeyListener {
 				entities.add(m);		
 				num_of_last_generated_entites++;
 			}
-			// Fette Frauen erzeugen
+			// Hindernisse erzeugen
 			for (int i=1; i<=6; i++) {
-				FatWoman fw = new FatWoman();
+				Obstacle obstacle;
+				// Zufälliges Hindernis
+				if (r.nextInt(2) == 0) {
+					obstacle = new FatWoman();
+				} else {
+					obstacle = new Crab();
+				}
 				boolean doesCollide;
 				int c = 0;
 				// Kollision mit anderen Objekten verhindern (Brute Force)
 				do {
 					doesCollide = false;
 					float x = r.nextInt(Math.round(1.5f*width)) + camera.position.getX() + width;
-					float y = r.nextInt(height-Math.round(fw.height)-120) + fw.height/2;
-					fw.setPosition(new Vector2f(x, y));
+					float y = r.nextInt(height-Math.round(obstacle.height)-120) + obstacle.height/2;
+					obstacle.setPosition(new Vector2f(x, y));
 					for (Entity e : entities) {
 						if (e instanceof ICollidable) {
-							if (fw.collidesWithEnsure((ICollidable)e)) {
+							if (obstacle.collidesWithEnsure((ICollidable)e)) {
 								doesCollide = true;
 								break;
 							}
@@ -214,9 +225,9 @@ public class Game implements KeyListener {
 						break;
 					}					
 				} while (doesCollide);
-				entities.add(fw);	
+				entities.add(obstacle);	
 				num_of_last_generated_entites++;
-			}			
+			}				
 		}
 	}
 	
