@@ -84,7 +84,9 @@ public class Player extends Entity implements ICollidable {
 	@Override
 	public void draw(Renderer renderer, GL gl) {
 		if (life.percentage() <= 25) {
-			AudioManager.playSoundWait(AudioManager.sweat);
+			if (!dead) {
+				AudioManager.playSoundWait(AudioManager.sweat);
+			}
 			stand.setTexture(TextureManager.horst_stand_sweat_tex);
 			walk.setTexture(TextureManager.horst_walk_sweat_tex);
 		} else {
