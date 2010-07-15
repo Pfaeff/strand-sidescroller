@@ -12,6 +12,7 @@ import com.sun.opengl.util.Animator;
 
 import render.Renderer;
 import sound.AudioManager;
+import sound.MP3Player;
 
 /**
  * Initialisiert notwendige Teilsysteme und stellt das ausf�hrbare Programm dar
@@ -28,6 +29,8 @@ public class Horst {
 	public Horst() {
 		// Sounds laden
 		AudioManager.loadSounds();
+		// Musik laden
+		MP3Player.loadMusic();
 		// Fenster initialisieren
 		initFrame();
 		// OpenGL initialisieren
@@ -37,6 +40,12 @@ public class Horst {
 		frame.add(canvas);			
 		// Spiel laufen lassen
 		runGame();
+		// hintergrundmusik abspielen
+		new Thread() {
+			public void run() {
+				MP3Player.play(MP3Player.music);
+			}
+		}.start();
 		// Fenster anzeigen
 		frame.setVisible(true);				
 	}
