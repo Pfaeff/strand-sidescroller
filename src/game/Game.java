@@ -316,8 +316,12 @@ public class Game implements KeyListener {
 			down = true;
 			up = false;
 			break;
-		}		
-		}		
+		}	
+		case (KeyEvent.VK_ENTER): {
+			newGame();
+			break;
+		}	
+		}
 	}
 
 	@Override
@@ -338,7 +342,7 @@ public class Game implements KeyListener {
 		case (KeyEvent.VK_DOWN): {
 			down = false;
 			break;
-		}		
+		}	
 		}	
 	}
 
