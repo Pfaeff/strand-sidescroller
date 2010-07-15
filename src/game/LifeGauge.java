@@ -10,7 +10,7 @@ import render.TextureManager;
 public class LifeGauge extends Entity {	
 	private float currentValue;
 	private boolean depleted;
-	private boolean doubleSpeed;
+	private boolean speedTimesFour;
 	final static private float speed = 30;	
 	final static private float maxValue = 1000;
 	final static private float fillAmount = 125;
@@ -20,7 +20,7 @@ public class LifeGauge extends Entity {
 	public LifeGauge() {
 		reset();
 		position = new Vector2f(width/2.0f + 25, 500 - (height+25));
-		doubleSpeed = false;
+		speedTimesFour = false;
 	}
 	
 	public void reset() {
@@ -77,8 +77,8 @@ public class LifeGauge extends Entity {
 
 	@Override
 	public void update(float dt) {
-		if (doubleSpeed) {
-			currentValue -= 2*speed * dt;	
+		if (speedTimesFour) {
+			currentValue -= 4*speed * dt;	
 		} else {
 			currentValue -= speed * dt;
 		}
@@ -100,8 +100,8 @@ public class LifeGauge extends Entity {
 		return Math.round((currentValue / maxValue) * 100.0f);
 	}
 	
-	public void setDoubleSpeed(boolean s) {
-		doubleSpeed = s;
+	public void setSpeedTimesFour(boolean s) {
+		speedTimesFour = s;
 	}
 	
 }

@@ -24,6 +24,7 @@ public class TextureManager {
 	static public Texture plane_tex;
 	static public Texture life_full_tex;
 	static public Texture life_empty_tex;
+	static public Texture shower_tex;
 	static public Texture[] go_tex = new Texture[2];
 
 	static public void loadTextures() {
@@ -42,10 +43,9 @@ public class TextureManager {
 			sunmilk_tex = loadTexture("images/static/sunmilk.png");
 			
 			fatwoman_tex[0] = loadTexture("images/animations/frau.png");			
-			fatwoman_tex[1] = loadTexture("images/animations/frau2.png");
-			
+			fatwoman_tex[1] = loadTexture("images/animations/frau2.png");			
 			crab_tex = loadTexture("images/animations/crab.png");	
-			
+			shower_tex = loadTexture("images/animations/dusche.png");			
 			radio_tex = loadTexture("images/animations/radio.png");
 			
 			plane_tex = loadTexture("images/animations/flugzeug.png");
