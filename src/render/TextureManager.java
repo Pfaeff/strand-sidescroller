@@ -24,6 +24,7 @@ public class TextureManager {
 	static public Texture plane_tex;
 	static public Texture life_full_tex;
 	static public Texture life_empty_tex;
+	static public Texture[] go_tex = new Texture[2];
 
 	static public void loadTextures() {
 		try {
@@ -51,6 +52,9 @@ public class TextureManager {
 			
 			life_full_tex = loadTexture("images/ui/leiste_voll.png");
 			life_empty_tex = loadTexture("images/ui/leiste_leer.png");	
+			
+			go_tex[0] = loadTexture("images/ui/GO1.png");
+			go_tex[1] = loadTexture("images/ui/GO2.png");
 		} catch (GLException e) {
 			e.printStackTrace();
 		}

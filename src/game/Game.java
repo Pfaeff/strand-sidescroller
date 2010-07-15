@@ -33,6 +33,9 @@ public class Game implements KeyListener {
 	private Background bg;
 	private ArrayList<Entity> entities;
 	
+	private boolean gameOver;
+	private GameOver go;
+	
 	private int num_of_last_generated_entites = 0;
 	
 	private double timeMultiplier;
@@ -47,17 +50,23 @@ public class Game implements KeyListener {
 				
 	
 	public Game(GameTimer gameTimer, int width, int height) {
-		camera = new Camera(new Vector2f(0, 0), new Vector2f(180, 0));
-		entities = new ArrayList<Entity>();
 		this.gameTimer = gameTimer;
 		this.width = width;
-		this.height = height;
+		this.height = height;		
 		
+		newGame();
+	}
+	
+	public void newGame() {
+		camera = new Camera(new Vector2f(0, 0), new Vector2f(180, 0));
+		entities = new ArrayList<Entity>();
 		life = new LifeGauge();
 		player = new Player(life);
 		player.setPosition(new Vector2f(width/2.0f, height/2.0f));
-		bg = new Background(TextureManager.background, camera, width, height);
 		timeMultiplier = 1;
+		gameOver = false;
+		go = new GameOver();
+		bg = new Background(TextureManager.background, camera, width, height);
 	}
 	
 	private Vector2f getMovementDirectionVector() {
@@ -96,14 +105,24 @@ public class Game implements KeyListener {
 			// Kamera
 			camera.update(dt);						
 			// Kollision
-			playerCollision(dt);		
-		} 
+			playerCollision(dt);
+		}  else {
+			if (!gameOver) {
+				gameOver = true;
+				go = new GameOver();
+			}			
+		}
 		
 		// Speicher sparen
 		removeOldEntities();
 		
 		// Level weiter-erzeugen
 		generateLevel();
+		
+		// GameOver
+		if (gameOver) {
+			go.update(dt);
+		}
 	}
 	
 	private void playerCollision(float dt) {
@@ -228,7 +247,7 @@ public class Game implements KeyListener {
 				num_of_last_generated_entites++;
 			}	
 			// flugzeug
-			if (r.nextInt(100) < 20) {
+			if (r.nextInt(100) < 40) {
 				Plane plane = new Plane();
 				plane.setPosition(Vector2f.add(camera.position, new Vector2f(width, 420+plane.width/2.0f)));
 				entities.add(plane);
@@ -244,6 +263,7 @@ public class Game implements KeyListener {
 			e.draw(renderer, gl);
 		}		
 		life.draw(renderer, gl);
+		go.draw(renderer, gl);
 	}
 
 	@Override
