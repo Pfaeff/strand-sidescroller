@@ -43,7 +43,9 @@ public class Horst {
 		// hintergrundmusik abspielen
 		new Thread() {
 			public void run() {
-				MP3Player.play(MP3Player.music);
+				while (true) {
+					MP3Player.play(MP3Player.music);
+				}
 			}
 		}.start();
 		// Fenster anzeigen
