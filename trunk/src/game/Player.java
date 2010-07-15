@@ -5,6 +5,7 @@ import javax.media.opengl.GL;
 import render.Animation;
 import render.Renderer;
 import render.TextureManager;
+import sound.AudioManager;
 
 import math.Rectangle;
 import math.Vector2f;
@@ -47,8 +48,8 @@ public class Player extends Entity implements ICollidable {
 		}
 		// a = F/m und m=1 ^^ Die beiden wirkenden Kr�fte sind die Tasten der Tastatur ;) und die Reibung,
 		// die von der Geschwindigkeit abh�ngt und in entgegengesetzter Richtung wirkt
-		Vector2f acc = Vector2f.sub(direction.scale(acceleration), velocity.scale(friction)).scale(dt); 
-		velocity = Vector2f.add(velocity, acc);
+		Vector2f acc = Vector2f.sub(direction.scale(acceleration), velocity.scale(friction)); 
+		velocity = Vector2f.add(velocity, acc.scale(dt));
 		float vL = velocity.length();
 		if (vL > velocityLimit) {
 			velocity = velocity.normalize().scale(velocityLimit);
@@ -75,10 +76,15 @@ public class Player extends Entity implements ICollidable {
 		
 		anim_dt = dt;		
 	}
+	
+	public void applyImpulse(Vector2f impulse) {
+		velocity = Vector2f.add(velocity, impulse);
+	}
 
 	@Override
 	public void draw(Renderer renderer, GL gl) {
 		if (life.percentage() <= 25) {
+			AudioManager.playSoundWait(AudioManager.sweat);
 			stand.setTexture(TextureManager.horst_stand_sweat_tex);
 			walk.setTexture(TextureManager.horst_walk_sweat_tex);
 		} else {
