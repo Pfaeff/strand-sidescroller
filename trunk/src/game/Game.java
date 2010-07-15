@@ -267,9 +267,9 @@ public class Game implements KeyListener {
 	public void render(Renderer renderer, GL gl, int width, int height){
 		camera.apply(gl);
 		bg.draw(renderer, gl);
-		player.draw(renderer, gl);
+		player.draw(renderer, gl);		
 		for (Entity e : entities) {
-			e.draw(renderer, gl);
+				e.draw(renderer, gl);
 		}		
 		life.draw(renderer, gl);
 		go.draw(renderer, gl);
