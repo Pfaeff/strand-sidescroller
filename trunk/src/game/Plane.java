@@ -16,7 +16,7 @@ public class Plane extends Entity {
 	public Plane() {
 		width = planeSize.getX();
 		height = planeSize.getY();
-		idle = new Animation(TextureManager.plane_tex, 500, 1, 2, true, -1);
+		idle = new Animation(TextureManager.plane_tex, 1000, 1, 2, true, -1);
 		idle.setSize(planeSize);	
 		velocity = new Vector2f(-1, 0).scale(speed);
 	}
