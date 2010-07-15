@@ -6,6 +6,7 @@ import java.awt.event.WindowEvent;
 
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLCapabilities;
+import javax.swing.JPanel;
 
 import com.sun.opengl.util.Animator;
 
@@ -13,7 +14,7 @@ import render.Renderer;
 import sound.AudioManager;
 
 /**
- * Initialisiert notwendige Teilsysteme und stellt das ausführbare Programm dar
+ * Initialisiert notwendige Teilsysteme und stellt das ausfï¿½hrbare Programm dar
  * 
  * @author Kai
  */
@@ -42,18 +43,18 @@ public class Horst {
 	
 	private void initFrame() {
 		frame = new Frame("Horst brennt");
-		// Fenstergröße
+		// Fenstergrï¿½ï¿½e
 		frame.setSize(width, height);
 		frame.setResizable(false);		
 		// Fenster zentrieren
-		frame.setLocationRelativeTo(null);		
+		frame.setLocationRelativeTo(null);	
 	}
 	
 	private void initGL() {
 		// OpenGL Capabilites
 		GLCapabilities caps = new GLCapabilities();
 		caps.setAlphaBits(8);		
-		// OpenGL Zeichenfläche
+		// OpenGL Zeichenflï¿½che
 		canvas = new GLCanvas(caps);	
 	}
 	
@@ -76,7 +77,7 @@ public class Horst {
 
 	/**
 	 * Main Methode
-	 * @param args Wird nicht benötigt
+	 * @param args Wird nicht benï¿½tigt
 	 */
 	public static void main(String[] args) {
 		new Horst();
