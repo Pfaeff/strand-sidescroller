@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.util.Iterator;
 import java.util.Random;
 
 import javax.media.opengl.GL;
+
+import com.sun.opengl.util.j2d.TextRenderer;
 
 import render.Background;
 import render.Renderer;
@@ -16,6 +19,7 @@ import sound.AudioManager;
 import math.Rectangle;
 import math.Vector2f;
 import engine.GameTimer;
+import engine.HighScore;
 
 /**
  * Klasse für die Spiel- und Interaktions-Logik
@@ -23,6 +27,7 @@ import engine.GameTimer;
  */
 public class Game implements KeyListener {
 	private GameTimer gameTimer;
+	private TextRenderer text;
 	
 	final private int width;
 	final private int height;
@@ -36,6 +41,8 @@ public class Game implements KeyListener {
 	private boolean gameOver;
 	private GameOver go;
 	
+	private int highScore;
+	
 	private int num_of_last_generated_entites = 0;
 	
 	private double timeMultiplier;
@@ -45,18 +52,20 @@ public class Game implements KeyListener {
 	private boolean up = false;
 	private boolean down = false;
 	
-	private int collectedMilks = 0;
+	private int score;
 				
 	
 	public Game(GameTimer gameTimer, int width, int height) {
 		this.gameTimer = gameTimer;
 		this.width = width;
-		this.height = height;		
+		this.height = height;	
+		text = new TextRenderer(new Font("sansserif", Font.BOLD, 24), true, false);
 		
 		newGame();
 	}
 	
 	public void newGame() {
+		highScore = HighScore.readHighScore();
 		camera = new Camera(new Vector2f(0, 0), new Vector2f(180, 0));
 		entities = new ArrayList<Entity>();
 		life = new LifeGauge();
@@ -66,6 +75,7 @@ public class Game implements KeyListener {
 		gameOver = false;
 		go = new GameOver();
 		bg = new Background(TextureManager.background, camera, width, height);
+		score = 0;
 	}
 	
 	private Vector2f getMovementDirectionVector() {
@@ -107,6 +117,7 @@ public class Game implements KeyListener {
 			playerCollision(dt);
 		}  else {
 			if (!gameOver) {
+				HighScore.writeHighScore(score);
 				gameOver = true;
 				go = new GameOver();
 			}			
@@ -151,7 +162,7 @@ public class Game implements KeyListener {
 			if (e instanceof SunMilk) {
 				if (player.collidesWith((ICollidable)e)) {
 					it.remove();
-					collectedMilks++;
+					score += 250;
 					life.fill();
 					// Sound abspielen
 					Random r = new Random();
@@ -265,14 +276,22 @@ public class Game implements KeyListener {
 	}
 	
 	public void render(Renderer renderer, GL gl, int width, int height){
+		gl.glColor3f(1.0f, 1.0f, 1.0f);
 		camera.apply(gl);
 		bg.draw(renderer, gl);
 		player.draw(renderer, gl);		
 		for (Entity e : entities) {
-				e.draw(renderer, gl);
+			e.draw(renderer, gl);
 		}		
 		life.draw(renderer, gl);
 		go.draw(renderer, gl);
+		
+	    text.beginRendering(width, height);
+	    text.setColor(0.0f, 0.0f, 0.0f, 0.8f);
+	    text.draw("Punkte: " + score, 740, 440);
+	    text.draw("HighScore: " + highScore, 740, 410);
+	    text.endRendering();
+	    		
 	}
 
 	@Override
