@@ -44,7 +44,7 @@ public class HighScore {
 			File f = new File(filename);
 			if (!f.exists()) {
 				out = new BufferedWriter(new FileWriter(filename));	
-				out.write(score);
+				out.write(Integer.valueOf(score).toString());
 				out.close();
 				return;
 			}			
@@ -53,7 +53,7 @@ public class HighScore {
 			String line;
 			line = in.readLine();
 			if ((line == null) || (Integer.valueOf(line) < score)) {
-				out.write(score);
+				out.write(Integer.valueOf(score).toString());
 			}
 			in.close();
 			out.close();
