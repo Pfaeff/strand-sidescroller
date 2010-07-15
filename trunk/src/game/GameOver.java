@@ -7,6 +7,7 @@ import javax.media.opengl.GL;
 import math.Vector2f;
 import render.Renderer;
 import render.TextureManager;
+import sound.AudioManager;
 
 public class GameOver {	
 	private int goType;
@@ -16,6 +17,11 @@ public class GameOver {
 	public GameOver() {
 		Random r = new Random();
 		goType = r.nextInt(4);
+		if (goType == 1) {
+			AudioManager.playSound(AudioManager.fatality);
+		} else {
+			AudioManager.playSound(AudioManager.scream);
+		}
 		transparency = 0;
 	}
 
