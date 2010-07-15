@@ -16,7 +16,7 @@ public class Shower extends Obstacle {
 	public Shower() {
 		width = showerSize.getX();
 		height = showerSize.getY();
-		idle = new Animation(TextureManager.shower_tex, 1000, 2, 1, true, -3);
+		idle = new Animation(TextureManager.shower_tex, 1000, 2, 1, true, -1);
 		idle.setSize(showerSize);				
 	}
 
