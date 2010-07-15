@@ -18,7 +18,7 @@ import math.Vector2f;
 import engine.GameTimer;
 
 /**
- * Klasse f�r die Spiel- und Interaktions-Logik
+ * Klasse für die Spiel- und Interaktions-Logik
  * @author Kai
  */
 public class Game implements KeyListener {
@@ -45,7 +45,6 @@ public class Game implements KeyListener {
 	private boolean up = false;
 	private boolean down = false;
 	
-	// TEST
 	private int collectedMilks = 0;
 				
 	
@@ -90,6 +89,7 @@ public class Game implements KeyListener {
 	}
 	
 	public void updateGame() {
+		life.setSpeedTimesFour(false);
 		float dt = gameTimer.update();
 		timeMultiplier += dt/100;
 		dt = dt * (float)timeMultiplier;
@@ -99,7 +99,6 @@ public class Game implements KeyListener {
 		player.setDirection(direction);
 		player.update(dt);
 		bg.update(dt);
-		life.update(dt);
 		
 		if (!player.isDead()) {
 			// Kamera
@@ -112,6 +111,8 @@ public class Game implements KeyListener {
 				go = new GameOver();
 			}			
 		}
+	
+		life.update(dt);		
 		
 		// Speicher sparen
 		removeOldEntities();
@@ -158,11 +159,17 @@ public class Game implements KeyListener {
 					AudioManager.playSound(AudioManager.milk[rs]);
 				}
 			}
-			// Fat Women
+			// Obstacles
 			if (e instanceof Obstacle) {
-				if (player.collidesWith((ICollidable)e)) {
-					Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
-					player.position = Vector2f.add(player.position, mtd);
+				if (e instanceof Shower) {
+					if (player.collidesWith((ICollidable)e)) {
+						life.setSpeedTimesFour(true);
+					}
+				} else {
+					if (player.collidesWith((ICollidable)e)) {
+						Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
+						player.position = Vector2f.add(player.position, mtd);
+					}
 				}
 			}
 		}			
@@ -213,14 +220,16 @@ public class Game implements KeyListener {
 			// Hindernisse erzeugen
 			for (int i=1; i<=7; i++) {
 				Obstacle obstacle;
-				int ot = r.nextInt(3);
+				int ot = r.nextInt(4);
 				// Zufälliges Hindernis
 				if (ot == 0) {
 					obstacle = new FatWoman();
 				} else if (ot == 1){
 					obstacle = new Crab();
-				} else {
+				} else if (ot == 2) {
 					obstacle = new Radio();
+				} else {
+					obstacle = new Shower();
 				}
 				boolean doesCollide;
 				int c = 0;
