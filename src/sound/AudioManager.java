@@ -7,10 +7,14 @@ import javax.sound.sampled.*;
 
 public class AudioManager {
 	static public Clip[] milk = new Clip[2];
+	static public Clip sweat;
+	static public Clip hurt;
 	
 	static public void loadSounds() {
 		milk[0] = fromFile("sounds/milk_1.wav");
 		milk[1] = fromFile("sounds/milk_2.wav");
+		sweat = fromFile("sounds/sweat.wav");
+		hurt = fromFile("sounds/hurt.wav");
 	}
 
 	static private Clip fromFile(String filename) {

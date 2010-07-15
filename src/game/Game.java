@@ -180,6 +180,10 @@ public class Game implements KeyListener {
 					if (player.collidesWith((ICollidable)e)) {
 						Vector2f mtd = Rectangle.getMTD(player.getRectangle(), ((ICollidable)e).getRectangle());
 						player.position = Vector2f.add(player.position, mtd);
+						if (e instanceof Crab) {
+							AudioManager.playSound(AudioManager.hurt);
+							player.applyImpulse(mtd.scale(10000));
+						}
 					}
 				}
 			}
@@ -267,7 +271,7 @@ public class Game implements KeyListener {
 				num_of_last_generated_entites++;
 			}	
 			// flugzeug
-			if (r.nextInt(100) < 40) {
+			if (r.nextInt(100) < 60) {
 				Plane plane = new Plane();
 				plane.setPosition(Vector2f.add(camera.position, new Vector2f(width, 420+plane.width/2.0f)));
 				entities.add(plane);
