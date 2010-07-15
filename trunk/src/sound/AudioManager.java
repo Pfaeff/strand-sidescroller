@@ -11,6 +11,7 @@ public class AudioManager {
 	static public Clip hurt;
 	static public Clip scream;
 	static public Clip fatality;
+	static public Clip plane;
 	
 	static public void loadSounds() {
 		milk[0] = fromFile("sounds/milk_1.wav");
@@ -19,6 +20,7 @@ public class AudioManager {
 		hurt = fromFile("sounds/hurt.wav");
 		scream = fromFile("sounds/schrei.wav");
 		fatality = fromFile("sounds/fatality.wav");
+		plane = fromFile("sounds/flugzeug.wav");
 	}
 
 	static private Clip fromFile(String filename) {
