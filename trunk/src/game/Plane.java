@@ -10,13 +10,13 @@ import render.TextureManager;
 
 public class Plane extends Entity {
 	private Animation idle;
-	final static private float speed = 100;
+	final static private float speed = 70;
 	final static private Vector2f planeSize = new Vector2f(240, 60);	
 	
 	public Plane() {
 		width = planeSize.getX();
 		height = planeSize.getY();
-		idle = new Animation(TextureManager.plane_tex, 1000, 1, 2, true, -1);
+		idle = new Animation(TextureManager.plane_tex, 800, 1, 2, true, -1);
 		idle.setSize(planeSize);	
 		velocity = new Vector2f(-1, 0).scale(speed);
 	}
