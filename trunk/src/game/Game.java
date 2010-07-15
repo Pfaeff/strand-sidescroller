@@ -73,7 +73,7 @@ public class Game implements KeyListener {
 		player.setPosition(new Vector2f(width/2.0f, height/2.0f));
 		timeMultiplier = 1;
 		gameOver = false;
-		go = new GameOver();
+		go = null;
 		bg = new Background(TextureManager.background, camera, width, height);
 		score = 0;
 	}
@@ -133,7 +133,9 @@ public class Game implements KeyListener {
 		
 		// GameOver
 		if (gameOver) {
-			go.update(dt);
+			if (go != null) {
+				go.update(dt);
+			}
 		}
 	}
 	
@@ -288,8 +290,9 @@ public class Game implements KeyListener {
 			e.draw(renderer, gl);
 		}		
 		life.draw(renderer, gl);
-		go.draw(renderer, gl);
-		
+		if (go != null) {
+			go.draw(renderer, gl);
+		}		
 	    text.beginRendering(width, height);
 	    text.setColor(0.0f, 0.0f, 0.0f, 0.8f);
 	    text.draw("Punkte: " + score, 740, 440);
