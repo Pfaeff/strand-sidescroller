@@ -15,7 +15,7 @@ public class GameOver {
 	
 	public GameOver() {
 		Random r = new Random();
-		goType = r.nextInt(2);
+		goType = r.nextInt(4);
 		transparency = 0;
 	}
 

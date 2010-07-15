@@ -25,7 +25,7 @@ public class TextureManager {
 	static public Texture life_full_tex;
 	static public Texture life_empty_tex;
 	static public Texture shower_tex;
-	static public Texture[] go_tex = new Texture[2];
+	static public Texture[] go_tex = new Texture[4];
 
 	static public void loadTextures() {
 		try {
@@ -55,6 +55,8 @@ public class TextureManager {
 			
 			go_tex[0] = loadTexture("images/ui/GO1.png");
 			go_tex[1] = loadTexture("images/ui/GO2.png");
+			go_tex[2] = loadTexture("images/ui/GO3.png");
+			go_tex[3] = loadTexture("images/ui/GO4.png");
 		} catch (GLException e) {
 			e.printStackTrace();
 		}
