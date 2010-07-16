@@ -29,8 +29,6 @@ public class Horst {
 	public Horst() {
 		// Sounds laden
 		AudioManager.loadSounds();
-		// Musik laden
-		MP3Player.loadMusic();
 		// Fenster initialisieren
 		initFrame();
 		// OpenGL initialisieren
@@ -44,7 +42,7 @@ public class Horst {
 		new Thread() {
 			public void run() {
 				while (true) {
-					MP3Player.play(MP3Player.music);
+					MP3Player.playMusic();
 				}
 			}
 		}.start();
