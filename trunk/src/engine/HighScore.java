@@ -36,32 +36,20 @@ public class HighScore {
 		}	
 		return 0;
 	}
-	
+
 	static public void writeHighScore(int score) {
-		BufferedReader in;
-		BufferedWriter out;
-		try {
-			File f = new File(filename);
-			if (!f.exists()) {
-				out = new BufferedWriter(new FileWriter(filename));	
+		int highscore = readHighScore();
+		if (highscore < score) {
+			try {
+				BufferedWriter out = new BufferedWriter(
+						new FileWriter(filename));
 				out.write(Integer.valueOf(score).toString());
 				out.close();
-				return;
-			}			
-			in = new BufferedReader(new FileReader(filename));
-			out = new BufferedWriter(new FileWriter(filename));
-			String line;
-			line = in.readLine();
-			if ((line == null) || (Integer.valueOf(line) < score)) {
-				out.write(Integer.valueOf(score).toString());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			in.close();
-			out.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}		
 	}
 }
