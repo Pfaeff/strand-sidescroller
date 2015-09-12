@@ -1,0 +1,1 @@
+Im Rahmen der Vorlesung Multimediaproduktion an der Uni Lübeck erstelltes Spiel über die Gefahren von Sonnenbrand.
